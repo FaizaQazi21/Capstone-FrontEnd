@@ -11,6 +11,8 @@ import {
 import Login from './routes/login';
 import A from './routes/a';
 import AID from './routes/aid';
+import User from './routes/user';
+import Admin from './routes/admin';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -18,6 +20,8 @@ ReactDOM.render(
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="login" element={<Login />} />
+        <Route path="user" element={<User />} />
+        <Route path="admin" element={<Admin />} />
         <Route path="a" element={<A />}>
             <Route
             index

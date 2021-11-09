@@ -8,8 +8,7 @@ import logo1 from '../assets/logo1.jpg';
 import { Link } from "react-router-dom";
 
 const navigation = [
-  { name: 'Menu A', href: '#' },
-  { name: 'Menu B', href: '#' },
+  { name: 'About', href: '#' },
 ]
 
 export default function ExampleLanding() {
