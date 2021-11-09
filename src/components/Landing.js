@@ -100,10 +100,10 @@ export default function ExampleLanding() {
                     ))}
                   </div>
                   <a
-                    href="#"
+                    href="/login"
                     className="block w-full px-5 py-3 text-center font-medium text-blue-900 bg-gray-50 hover:bg-gray-100"
                   >
-                    Log in
+                  Log in
                   </a>
                 </div>
               </Popover.Panel>

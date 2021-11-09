@@ -4,12 +4,10 @@ import H3 from '@material-tailwind/react/Heading3';
 import LeadText from '@material-tailwind/react/LeadText';
 import ProfilePicture from '../assets/logo1.jpg';
 
-export default function UserView() {
-    const data = [{"name":"Project1"}, {"name":"Project2"}];
-
+export default function ProjectView({project}) {
     return (
       <>
-        <section className="relative py-96 bg-gray-100">
+        <section id="pro" className="relative py-96 bg-gray-100">
             <div className="container max-w-7xl px-4 mx-auto">
                 <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-2xl -mt-64">
                     <div className="px-6">
@@ -30,7 +28,7 @@ export default function UserView() {
                         </div>
 
                         <div className="text-center my-8">
-                            <H3 color="gray">{data[0].name}</H3>
+                            <H3 color="gray">{project.name}</H3>
                             <div className="mt-0 mb-2 text-gray-700 font-medium flex items-center justify-center gap-2">
                                 A really good project
                             </div>

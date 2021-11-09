@@ -31,8 +31,23 @@ let invoices = [
     }
   ];
   
+  const data = [
+    {"id": 1, "name":"Project1"}, 
+    {"id": 2,"name":"Project2"},
+    {"id": 3,"name":"Project3"}];
+
   export function getInvoices() {
     return invoices;
+  }
+
+  export function getProjects() {
+    return data;
+  }
+
+  export function getProject(id) {
+    return data.find(
+      p => p.id === id
+    );
   }
 
   export function getInvoice(number) {

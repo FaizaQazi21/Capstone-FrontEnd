@@ -3,21 +3,20 @@ import * as React from 'react';
 import { Fragment } from 'react';
 import { Popover, Transition } from '@headlessui/react';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
-import logo from '../assets/logo-graphic.png';
 import logo1 from '../assets/logo1.jpg';
 import { Link } from "react-router-dom";
 
 const navigation = [
+  { name: 'Dashboard', href: '#' },
   { name: 'Projects', href: '/projects' },
   { name: 'Users', href: '/users' },
-  { name: 'Dashboard', href: '#' },
 ]
 
 export default function ExampleLandingAdmin() {
   return (
-    <div className="relative bg-white overflow-hidden">
+    <div className="relative bg-white overflow">
       <div className="max-w-7xl mx-auto">
-        <div className="relative z-10 pb-8 bg-white sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32">
+        <div className="relative z-10 pb-8 bg-white lg:max-w-2xl lg:w-full ">
           <svg
             className="hidden lg:block absolute right-0 inset-y-0 h-full w-48 text-white transform translate-x-1/2"
             fill="currentColor"
@@ -33,12 +32,13 @@ export default function ExampleLandingAdmin() {
               <nav className="relative flex items-center justify-between sm:h-10 lg:justify-start" aria-label="Global">
                 <div className="flex items-center flex-grow flex-shrink-0 lg:flex-grow-0">
                   <div className="flex items-center justify-between w-full md:w-auto">
-                    <a href="#">
+                    <a href="/admin">
                       <span className="sr-only">Workflow</span>
                       <img
                         className="h-8 w-auto sm:h-16 rounded-sm"
                         src={logo1}
-                      />
+                      >
+                      </img>
                     </a>
                     <div className="-mr-2 flex items-center md:hidden">
                       <Popover.Button className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-900">
@@ -102,7 +102,7 @@ export default function ExampleLandingAdmin() {
                     ))}
                   </div>
                   <a
-                    href="#"
+                    href="/login"
                     className="block w-full px-5 py-3 text-center font-medium text-blue-900 bg-gray-50 hover:bg-gray-100"
                   >
                     Sign Out

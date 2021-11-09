@@ -14,6 +14,7 @@ import AID from './routes/aid';
 import User from './routes/user';
 import Admin from './routes/admin';
 import Projects from './routes/projects';
+import Project from './routes/project';
 import ManageUsers from './routes/manageUsers';
 
 ReactDOM.render(
@@ -24,7 +25,9 @@ ReactDOM.render(
         <Route path="login" element={<Login />} />
         <Route path="user" element={<User />} />
         <Route path="admin" element={<Admin />} />
-        <Route path="projects" element={<Projects />} />
+        <Route path="projects" element={<Projects />} >
+          <Route path=":projectID" element={<Project />} />
+        </Route>
         <Route path="users" element={<ManageUsers />} />
         <Route path="a" element={<A />}>
             <Route
@@ -34,7 +37,7 @@ ReactDOM.render(
                 <p>Select an invoice</p>
               </main>
             }
-          />
+            />
           <Route path=":aID" element={<AID />} />
         </Route>
         <Route

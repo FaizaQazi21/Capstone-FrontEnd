@@ -1,17 +1,16 @@
 import Card from '@material-tailwind/react/Card';
-import CardHeader from '@material-tailwind/react/CardHeader';
 import CardBody from '@material-tailwind/react/CardBody';
-import Image from '@material-tailwind/react/Image';
 import Progress from '@material-tailwind/react/Progress';
-import logo1 from '../assets/logo1.jpg';
 import { AdjustmentsIcon, EyeIcon } from '@heroicons/react/outline'
 import { Button } from '@material-ui/core';
 import { Link } from "react-router-dom";
-
+import { getProjects } from "../data";
+ 
 
   
 export default function ListView() {
-    const data = [{"name":"Project1"}, {"name":"Project2"}, {"name":"Project2"}];
+    const data = getProjects();
+
 
     return (
       <>
@@ -45,10 +44,11 @@ export default function ListView() {
                         </thead>
                         <tbody>
                         {data.map(function(d, idx){
+                            let link = "/projects/" + (d.id).toString();
                             return (
                                 <tr key={idx}>
                                 <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
-                                    {d.name}
+                                    <Link to={link}>{d.name}</Link>
                                 </th>
                                 <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
                                     17
