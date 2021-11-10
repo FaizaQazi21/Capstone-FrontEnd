@@ -27,8 +27,8 @@ export default class UserForm extends React.Component{
     }
     
     handleSubmit(event) {
+        //check when role null
         alert('The User was created!');
-        this.handleChange(event);
         event.preventDefault();
     }
 

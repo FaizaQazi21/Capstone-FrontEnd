@@ -25,9 +25,9 @@ export default class ProjectForm extends React.Component{
     }
     
     handleSubmit(event) {
+        //check when priority null
         alert('The Project was created!');
         console.log(this.state);
-        this.handleChange(event);
         event.preventDefault();
     }
 
@@ -47,8 +47,11 @@ export default class ProjectForm extends React.Component{
                                     </label>
                                     <input
                                         type="text"
-                                        name="first-name"
+                                        name="name"
+                                        value={this.state.name}
+                                        onChange={this.handleChange}
                                         id="first-name"
+                                        required
                                         autoComplete="given-name"
                                         className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                                     />
@@ -62,7 +65,10 @@ export default class ProjectForm extends React.Component{
                                         <textarea
                                             id="about"
                                             name="about"
+                                            value={this.state.about}
+                                            onChange={this.handleChange}
                                             rows={3}
+                                            required
                                             className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md"
                                             defaultValue={''}
                                         />
@@ -79,8 +85,11 @@ export default class ProjectForm extends React.Component{
                                     </label>
                                     <select
                                         id="role"
-                                        name="role"
+                                        name="priority"
+                                        value={this.state.priority}
+                                        onChange={this.handleChange}
                                         autoComplete="role-name"
+                                        required
                                         className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                     >
                                         <option>Low</option>
