@@ -36,6 +36,14 @@ let invoices = [
     {"id": 2,"name":"Project2"},
     {"id": 3,"name":"Project3"}];
 
+  
+  const user = [
+    {"name": "A", "email": "x@gmail.com", "password": "123456", "role":"User"}
+  ];
+
+  export function getUser(){
+    return this.user;
+  }
   export function getInvoices() {
     return invoices;
   }
