@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { getUser } from '../data';
+//import { getUser } from '../data';
 
 export default class UserForm extends React.Component{
     constructor(props) {

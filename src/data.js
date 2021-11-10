@@ -44,6 +44,7 @@ let invoices = [
   export function getUser(){
     return this.user;
   }
+  
   export function getInvoices() {
     return invoices;
   }
