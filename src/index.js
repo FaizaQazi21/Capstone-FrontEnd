@@ -13,9 +13,11 @@ import A from './routes/a';
 import AID from './routes/aid';
 import User from './routes/user';
 import Admin from './routes/admin';
-import Projects from './routes/projects';
+import Projects from './routes/admin/projects';
 import Project from './routes/project';
-import ManageUsers from './routes/manageUsers';
+import ManageUsers from './routes/admin/manageUsers';
+import CreateUser from './routes/admin/createUser';
+import CreateProject from './routes/admin/createProject';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -29,6 +31,8 @@ ReactDOM.render(
           <Route path=":projectID" element={<Project />} />
         </Route>
         <Route path="users" element={<ManageUsers />} />
+        <Route path="createuser" element={<CreateUser />} />
+        <Route path="createproject" element={<CreateProject />} />
         <Route path="a" element={<A />}>
             <Route
             index

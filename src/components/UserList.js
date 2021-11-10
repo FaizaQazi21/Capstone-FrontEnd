@@ -1,10 +1,6 @@
 import Card from '@material-tailwind/react/Card';
-import CardHeader from '@material-tailwind/react/CardHeader';
 import CardBody from '@material-tailwind/react/CardBody';
-import Image from '@material-tailwind/react/Image';
-import Progress from '@material-tailwind/react/Progress';
-import logo1 from '../assets/logo1.jpg';
-import { AdjustmentsIcon, EyeIcon } from '@heroicons/react/outline'
+import { AdjustmentsIcon } from '@heroicons/react/outline'
 import { Button } from '@material-ui/core';
 import { Link } from "react-router-dom";
 
@@ -19,7 +15,7 @@ export default function UserListView() {
             <button
                   className="flex ml-4 py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-yellow-500 hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
-                  <Link to="/user">Create new User</Link>                  
+                  <Link to="/createuser">Create new User</Link>                  
             </button>
             <CardBody>
                 <div className="overflow-x-auto">

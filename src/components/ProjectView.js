@@ -29,10 +29,6 @@ export default function ProjectView({project}) {
 
                         <div className="text-center my-8">
                             <H3 color="gray">{project.name}</H3>
-                            <div className="mt-0 mb-2 text-gray-700 font-medium flex items-center justify-center gap-2">
-                                A really good project
-                            </div>
-                           
                         </div>
 
                         <div className="mb-10 py-2 border-t border-gray-200 text-center">
