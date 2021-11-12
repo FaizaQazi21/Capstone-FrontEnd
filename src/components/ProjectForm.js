@@ -1,14 +1,16 @@
 import * as React from 'react';
 import { getProject } from '../data';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 class ProjectFormClass extends React.Component{
     constructor(props) {
         super(props);
         const project = getProject(parseInt(props.id));
         this.state = {
+            id: project ? project.id: '',
             name: project ? project.name : '', 
-            about: project ? project.about : '', 
+            project_description: project ? project.project_description : '', 
             priority: project ? project.priority : 'Low'
         };
     
@@ -23,17 +25,35 @@ class ProjectFormClass extends React.Component{
 
         this.setState({
             [name]: value, 
+            
         });
 
     }
     
     handleSubmit(event) {
+       
         //check when priority null
-        alert('The Project was saved!');
+        //alert('The Project was saved!');
+        //event.preventDefault();
         event.preventDefault();
-        this.props.navigate('/projects');
-    }
+        fetch('http://localhost:8080/api/project/', {
+            method: 'POST',
+            headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+            name: this.state.name,
+            project_description: this.state.project_description,
+            priority: this.state.priority
+            })
+        })
+        .then(res => res.json())
+        .then(data => console.log(data))
+        .catch(err => console.log(err));
 
+        this.props.navigate('/projects');   
+    }
     render(){
         return (
             <>
@@ -45,30 +65,30 @@ class ProjectFormClass extends React.Component{
                                 <div className="px-4 py-5 bg-white sm:p-6">
                                 <div className="grid grid-cols-6 gap-6">
                                     <div className="col-span-6 sm:col-span-4">
-                                    <label htmlFor="first-name" className="block text-sm font-medium text-gray-700">
-                                        Project name
-                                    </label>
-                                    <input
-                                        type="text"
-                                        name="name"
-                                        value={this.state.name}
-                                        onChange={this.handleChange}
-                                        id="first-name"
-                                        required
-                                        autoComplete="given-name"
-                                        className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                    />
+                                        <label htmlFor="first-name" className="block text-sm font-medium text-gray-700">
+                                            Project name
+                                        </label>
+                                        <input
+                                            type="text"
+                                            name="name"
+                                            value={this.state.name}
+                                            onChange={this.handleChange}
+                                            id="first-name"
+                                            required
+                                            autoComplete="given-name"
+                                            className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                        />
                                     </div>                            
 
                                     <div className="col-span-6 sm:col-span-4">
-                                        <label htmlFor="about" className="block text-sm font-medium text-gray-700">
+                                        <label htmlFor="project_description" className="block text-sm font-medium text-gray-700">
                                         About
                                         </label>
                                         <div className="mt-1">
                                         <textarea
-                                            id="about"
-                                            name="about"
-                                            value={this.state.about}
+                                            id="project_description"
+                                            name="project_description"
+                                            value={this.state.project_description}
                                             onChange={this.handleChange}
                                             rows={3}
                                             required
@@ -111,12 +131,7 @@ class ProjectFormClass extends React.Component{
                                     >
                                         Cancel
                                     </button>
-                                    <button
-                                        type="submit"
-                                        className="inline-flex pr-3justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-yellow-500 hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                                    >
-                                        Save
-                                    </button>
+                                    <input type="submit" value="Save" className="inline-flex pr-3justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-yellow-500 hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"/>
                                 </div>
                             </div>
                         </form>
