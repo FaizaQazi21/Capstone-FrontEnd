@@ -1,14 +1,17 @@
 import * as React from 'react';
-//import { getUser } from '../data';
+import { getUser } from "../data";
+import { Link } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
-export default class UserForm extends React.Component{
+class UserFormClass extends React.Component{
     constructor(props) {
         super(props);
+        const user = getUser(parseInt(props.id));
         this.state = {
-            name: '', 
-            email: '', 
-            password: '', 
-            role: ''
+            name:  user ? user.name : '', 
+            email: user ? user.email : '', 
+            password: user ? user.password : '', 
+            role: user ? user.role : 'User'
         };
     
         this.handleChange = this.handleChange.bind(this);
@@ -28,13 +31,13 @@ export default class UserForm extends React.Component{
     
     handleSubmit(event) {
         //check when role null
-        alert('The User was created!');
+        alert('The User was saved!');
         event.preventDefault();
+        this.props.navigate('/users');
     }
 
     render() {
     
-    //const user = getUser();
 
     return (
         <>
@@ -116,12 +119,11 @@ export default class UserForm extends React.Component{
                             </div>
                             </div>
                             <div className="text-right px-4 py-3 sm:px-6">
-                                <button
-                                    type=""
-                                    className="mr-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-900 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                                >
-                                    Cancel
-                                </button>
+                                <Link to="/users" className="mr-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-900 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                        <button className="font-bold">
+                                        Cancel
+                                        </button>
+                                </Link>
                                 <button
                                     type="submit"
                                     value="Submit"
@@ -139,4 +141,9 @@ export default class UserForm extends React.Component{
      
         </>
     );}
+}
+
+export default function UserForm(props) {
+    let navigate = useNavigate();
+    return <UserFormClass {...props} navigate={navigate} />
 }

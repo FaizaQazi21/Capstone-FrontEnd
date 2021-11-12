@@ -3,11 +3,12 @@ import Image from '@material-tailwind/react/Image';
 import H3 from '@material-tailwind/react/Heading3';
 import LeadText from '@material-tailwind/react/LeadText';
 import ProfilePicture from '../assets/logo1.jpg';
+import { Link } from "react-router-dom";
 
 export default function ProjectView({project}) {
     return (
       <>
-        <section id="pro" className="relative py-96 bg-gray-100">
+        <section id="pro" className="relative pt-96">
             <div className="container max-w-7xl px-4 mx-auto">
                 <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-2xl -mt-64">
                     <div className="px-6">
@@ -71,10 +72,7 @@ export default function ProjectView({project}) {
                                     </div>
                                 </div>
                             </div>
-                                    <a
-                                        href="#pablo"
-                                        onClick={(e) => e.preventDefault()}
-                                    >
+                                    <Link to="tasks">
                                         <Button
                                             color="lightBlue"
                                             buttonType="link"
@@ -82,7 +80,7 @@ export default function ProjectView({project}) {
                                         >
                                             Show Tasks
                                         </Button>
-                                    </a>
+                                    </Link>
                                 </div>
                             </div>
                         </div>

@@ -3,17 +3,17 @@ import CardBody from '@material-tailwind/react/CardBody';
 import { AdjustmentsIcon } from '@heroicons/react/outline'
 import { Button } from '@material-ui/core';
 import { Link } from "react-router-dom";
+import { getUsers } from "../data";
 
 
   
 export default function UserListView() {
-    const data = [{"name":"A"}, {"name":"B"}, {"name":"C"}];
-
+    const data = getUsers();
     return (
       <>
         <Card>
             <button
-                  className="flex ml-4 py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-yellow-500 hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  className="flex ml-3 py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-yellow-500 hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
                   <Link to="/createuser">Create new User</Link>                  
             </button>
@@ -41,6 +41,7 @@ export default function UserListView() {
                         </thead>
                         <tbody>
                         {data.map(function(d, idx){
+                            let link = "/edituser/" + d.id; 
                             return (
                                 <tr key={idx}>
                                 <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
@@ -58,9 +59,11 @@ export default function UserListView() {
                                 </th>
 
                                 <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
-                                    <Button className="">
-                                        <AdjustmentsIcon className="pl-1 max-h-7 text-yellow-500 hover:bg-yellow-600"/>
-                                    </Button>
+                                    <Link to={link} params={{ user: {d} }}>
+                                        <Button>
+                                            <AdjustmentsIcon className="pl-1 max-h-7 text-yellow-500 "/>
+                                        </Button>
+                                    </Link>
                                 </th>
                             </tr>
                             )

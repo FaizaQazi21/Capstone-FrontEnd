@@ -1,12 +1,15 @@
 import * as React from 'react';
+import { getProject } from '../data';
+import { useNavigate } from 'react-router-dom';
 
-export default class ProjectForm extends React.Component{
+class ProjectFormClass extends React.Component{
     constructor(props) {
         super(props);
+        const project = getProject(parseInt(props.id));
         this.state = {
-            name: '', 
-            about: '', 
-            priority: ''
+            name: project ? project.name : '', 
+            about: project ? project.about : '', 
+            priority: project ? project.priority : 'Low'
         };
     
         this.handleChange = this.handleChange.bind(this);
@@ -26,9 +29,9 @@ export default class ProjectForm extends React.Component{
     
     handleSubmit(event) {
         //check when priority null
-        alert('The Project was created!');
-        console.log(this.state);
+        alert('The Project was saved!');
         event.preventDefault();
+        this.props.navigate('/projects');
     }
 
     render(){
@@ -121,4 +124,9 @@ export default class ProjectForm extends React.Component{
                 </div>
             </>
         );}
+}
+
+export default function ProjectForm(props) {
+    let navigate = useNavigate();
+    return <ProjectFormClass {...props} navigate={navigate} />
 }

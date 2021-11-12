@@ -6,7 +6,6 @@ import { Button } from '@material-ui/core';
 import { Link } from "react-router-dom";
 import { getProjects } from "../data";
  
-
   
 export default function ListView() {
     const data = getProjects();
@@ -16,7 +15,7 @@ export default function ListView() {
       <>
         <Card>
             <button
-                  className="flex ml-4 py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-yellow-500 hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  className="flex ml-3 py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-yellow-500 hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
                   <Link to="/createproject">Create new project</Link>                  
             </button>
@@ -37,14 +36,15 @@ export default function ListView() {
                                 <th className="px-2 text-blue-900 align-middle border-b border-solid border-gray-200 py-3 text-sm whitespace-nowrap text-left">
                                     Completion
                                 </th>
-                                <th className="px-2 text-blue-900 align-middle border-b border-solid border-gray-200 py-3 text-sm whitespace-nowrap text-left">
+                                <th className="px-5 text-blue-900 align-middle border-b border-solid border-gray-200 py-3 text-sm whitespace-nowrap text-left">
                                     Options
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
                         {data.map(function(d, idx){
-                            let link = "/projects/" + (d.id).toString();
+                            let linkEdit = "/editproject/" + (d.id).toString();
+                            let link = "/project/" + (d.id).toString();
                             return (
                                 <tr key={idx}>
                                 <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
@@ -61,10 +61,16 @@ export default function ListView() {
                                     <Progress color="red" value="60" />
                                 </th>
                                 <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
-                                    <Button className="">
-                                        <EyeIcon className="max-h-7 text-yellow-500 hover:bg-yellow-600"/>
-                                        <AdjustmentsIcon className="pl-1 max-h-7 text-yellow-500 hover:bg-yellow-600"/>
-                                    </Button>
+                                    <Link to={link}>
+                                        <Button className="">
+                                            <EyeIcon className="max-h-7 text-yellow-500 "/>
+                                        </Button>
+                                    </Link>
+                                    <Link to={linkEdit}>
+                                        <Button className="">
+                                            <AdjustmentsIcon className="pl-1 max-h-7 text-yellow-500 "/>
+                                        </Button>
+                                    </Link>
                                 </th>
                             </tr>
                             )

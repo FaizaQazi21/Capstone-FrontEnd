@@ -31,18 +31,27 @@ let invoices = [
     }
   ];
   
-  const data = [
-    {"id": 1, "name":"Project1"}, 
-    {"id": 2,"name":"Project2"},
-    {"id": 3,"name":"Project3"}];
+  let projects = [
+    {id: 1, name:"Project1", about:"text", priority:"Low"}, 
+    {id: 2, name:"Project2", about:"text", priority:"Low" },
+    {id: 3, name:"Project3", about:"text", priority:"Low" }];
 
   
-  const user = [
-    {"name": "A", "email": "x@gmail.com", "password": "123456", "role":"User"}
+  let users = [
+    {id:"1", name: "A", email: "x@gmail.com", password: "123456", role: "User"},
+    {id:"2", name: "B", email: "x@gmail.com", password: "123456", role: "User"}
   ];
 
-  export function getUser(){
-    return this.user;
+  export function getUser(id){
+    console.log(users);
+
+    return users.find(
+      u => u.id == id
+    );
+  }
+
+  export function getUsers(){
+    return users;
   }
   
   export function getInvoices() {
@@ -50,11 +59,12 @@ let invoices = [
   }
 
   export function getProjects() {
-    return data;
+    return projects;
   }
 
+
   export function getProject(id) {
-    return data.find(
+    return projects.find(
       p => p.id === id
     );
   }

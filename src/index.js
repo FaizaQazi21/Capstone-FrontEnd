@@ -15,9 +15,13 @@ import User from './routes/user';
 import Admin from './routes/admin';
 import Projects from './routes/admin/projects';
 import Project from './routes/project';
+import ProjectBase from './routes/projectbase';
 import ManageUsers from './routes/admin/manageUsers';
 import CreateUser from './routes/admin/createUser';
 import CreateProject from './routes/admin/createProject';
+import UserView from './routes/admin/user';
+import EditProjectView from './routes/admin/project';
+import TaskList from './routes/tasklist';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -27,10 +31,19 @@ ReactDOM.render(
         <Route path="login" element={<Login />} />
         <Route path="user" element={<User />} />
         <Route path="admin" element={<Admin />} />
-        <Route path="projects" element={<Projects />} >
-          <Route path=":projectID" element={<Project />} />
+        <Route path="projects" element={<Projects />}/>
+        <Route path="project" element={<ProjectBase />}>
+          <Route path=":projectID" element={<Project />}>
+            <Route path="tasks" element={<TaskList />}/>
+          </Route>
         </Route>
-        <Route path="users" element={<ManageUsers />} />
+        <Route path="users" element={<ManageUsers />}/>
+        <Route path="edituser" element={<UserView />}>
+          <Route path=":userID" element={<UserView />}/>
+        </Route>
+        <Route path="editproject" element={<EditProjectView />}>
+          <Route path=":projectID" element={<EditProjectView />}/>
+        </Route>
         <Route path="createuser" element={<CreateUser />} />
         <Route path="createproject" element={<CreateProject />} />
         <Route path="a" element={<A />}>
