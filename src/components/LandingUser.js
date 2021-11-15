@@ -6,13 +6,13 @@ import { MenuIcon, XIcon } from '@heroicons/react/outline';
 import logo1 from '../assets/logo1.jpg';
 
 
-const navigation = [
-  { name: 'Search Projects', href: '#' },
-  { name: 'My tasks', href: '/user/tasks/2' },
-]
 
-export default function ExampleLandingUser() {
-
+export default function ExampleLandingUser(props) {
+  
+  const navigation = [
+    { name: 'Search Projects', href: '#' },
+    { name: 'My tasks', href: `/user/tasks/1` },
+  ]
   return (
     <>
     <div className="relative bg-white overflow">

@@ -1,7 +1,7 @@
+import React, { useState, useEffect } from 'react';
 import Card from '@material-tailwind/react/Card';
 import CardBody from '@material-tailwind/react/CardBody';
 import { Link } from "react-router-dom";
-import { getTaskByuserID } from "../../data";
 import {useParams} from 'react-router-dom';
 import { EyeIcon } from '@heroicons/react/outline'
 import { Button } from '@material-ui/core';
@@ -13,7 +13,26 @@ export default function TaskList() {
     
     const  param  = useParams();
     var id = parseInt(param.userID);
-    let data = getTaskByuserID(id);
+
+    const[tasks, setTasks] = useState([]);
+    console.log("this is userid " + id)
+    //getting
+    useEffect(() => {
+    fetch(`http://localhost:8080/api/task/user/1`
+        
+        )
+
+            .then(response => {
+                if (response.status !== 200) {
+                    return Promise.reject("Fetch failed")
+                }
+                return response.json();
+            })
+            .then(json => setTasks(json))
+            .catch(console.log);
+    }, []);
+
+    console.log("this is length " + tasks.length)
 
     return (
       <>
@@ -42,9 +61,10 @@ export default function TaskList() {
                             </tr>
                         </thead>
                         <tbody>
-                           
-                        {data.length>0 ? data.map(function(d, idx){
-                            let link = "/user/project/task/" + (d.taskId).toString();
+
+                        {tasks.length>0 ? tasks.map(function(d, idx){
+                            let link = "/user/project/task/" + (d.userId);
+                            
                             return (
                                 <tr key={idx}>
                                 <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">

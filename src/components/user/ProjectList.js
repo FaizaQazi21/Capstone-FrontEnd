@@ -1,4 +1,5 @@
 
+import React, { useState, useEffect } from 'react';
 import Card from '@material-tailwind/react/Card';
 import CardBody from '@material-tailwind/react/CardBody';
 import Progress from '@material-tailwind/react/Progress';
@@ -10,7 +11,21 @@ import { getProjects } from "../../data";
 
   
 export default function ProjectList() {
-    const data = getProjects();
+    const [project, setProject] = useState([]);
+     
+    //getting
+    useEffect(() => {
+        fetch("http://localhost:8080/api/project"
+        )
+            .then(response => {
+                if (response.status !== 200) {
+                    return Promise.reject("Fetch failed")
+                }
+                return response.json();
+            })
+            .then(json => setProject(json))
+            .catch(console.log);
+    }, []);
 
 
     return (
@@ -40,7 +55,7 @@ export default function ProjectList() {
                  </tr>
              </thead>
              <tbody>
-             {data.map(function(d, idx){
+             {project.map(function(d, idx){
                  let link = "/user/projectTasks/" + (d.id).toString();
                  return (
                      <tr key={idx}>
