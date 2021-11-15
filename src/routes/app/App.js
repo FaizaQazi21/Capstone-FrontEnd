@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { history } from '../../helpers/history';
 import { Role } from '../../helpers/role';
 import { authenticationService } from '../../services/authentication.service';
@@ -42,13 +41,11 @@ class App extends React.Component {
                 <div>
                     {currentUser && isAdmin &&
                         <div>
-                            <a onClick={this.logout} className="nav-item nav-link">Logout</a>
                             <ExampleLandingAdmin/>
                         </div>
                     }
                     {currentUser && !isAdmin &&
                         <div>
-                            <a onClick={this.logout} className="nav-item nav-link">Logout</a>
                             <ExampleLandingUser/>
                         </div>
                     }

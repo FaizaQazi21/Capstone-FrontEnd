@@ -6,11 +6,18 @@ import { MenuIcon, XIcon } from '@heroicons/react/outline';
 import logo from '../assets/logo-graphic.png';
 import logo1 from '../assets/logo1.jpg';
 import { Link } from "react-router-dom";
+import { history } from '../helpers/history';
+import { authenticationService } from '../services/authentication.service';
 
 const navigation = [
   { name: 'Search Projects', href: '#' },
   { name: 'My tasks', href: '#' },
 ]
+
+function logout(){
+  authenticationService.logout();
+  history.push('/');
+}
 
 export default function ExampleLandingUser() {
   return (
@@ -53,8 +60,8 @@ export default function ExampleLandingUser() {
                       {item.name}
                     </a>
                   ))}
-                  <a href="#" className="font-bold text-yellow-500 hover:text-gray-900">
-                    <Link to="/login">Sign Out</Link>
+                  <a onClick={logout} className="font-bold text-yellow-500 hover:text-gray-900">
+                    <Link to="/">Sign Out</Link>
                   </a>
                 </div>
               </nav>
@@ -101,10 +108,10 @@ export default function ExampleLandingUser() {
                     ))}
                   </div>
                   <a
-                    href="#"
+                    onClick={logout}
                     className="block w-full px-5 py-3 text-center font-medium text-blue-900 bg-gray-50 hover:bg-gray-100"
                   >
-                    Sign Out
+                    <Link to="/">Sign Out</Link>
                   </a>
                 </div>
               </Popover.Panel>

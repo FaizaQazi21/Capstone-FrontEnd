@@ -1,10 +1,9 @@
-import { getProject } from "../data";
-import { useParams } from "react-router-dom";
-import ExampleLanding from "../components/Landing";
+//import { getProject } from "../data";
+//import { useParams } from "react-router-dom";
 
 export default function TaskList() {
-    let params = useParams();
-    let project = getProject(parseInt(params.projectID));
+    //let params = useParams();
+    //let project = getProject(parseInt(params.projectID));
     return (
       <>
         <span>task</span>

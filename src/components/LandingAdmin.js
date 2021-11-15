@@ -5,6 +5,8 @@ import { Popover, Transition } from '@headlessui/react';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
 import logo1 from '../assets/logo1.jpg';
 import { Link } from "react-router-dom";
+import { history } from '../helpers/history';
+import { authenticationService } from '../services/authentication.service';
 
 const navigation = [
   { name: 'Dashboard', href: '#' },
@@ -12,7 +14,12 @@ const navigation = [
   { name: 'Users', href: '/users' },
 ]
 
-export default function ExampleLandingAdmin() {
+function logout(){
+  authenticationService.logout();
+  history.push('/');
+}
+
+export default function ExampleLandingAdmin(props) {
   return (
     <div className="relative bg-white overflow">
       <div className="max-w-7xl mx-auto">
@@ -54,8 +61,8 @@ export default function ExampleLandingAdmin() {
                       <Link to={item.href}>{item.name}</Link>
                     </a>
                   ))}
-                  <a href="#" className="font-bold text-yellow-500 hover:text-gray-900">
-                    <Link to="/login">Sign Out</Link>
+                  <a onClick={logout} className="font-bold text-yellow-500 hover:text-gray-900">
+                    <Link to="/">Sign Out</Link>
                   </a>
                 </div>
               </nav>
@@ -102,16 +109,15 @@ export default function ExampleLandingAdmin() {
                     ))}
                   </div>
                   <a
-                    href="/login"
+                    onClick={logout}
                     className="block w-full px-5 py-3 text-center font-medium text-blue-900 bg-gray-50 hover:bg-gray-100"
                   >
-                    Sign Out
+                    <Link to="/">Sign Out</Link>
                   </a>
                 </div>
               </Popover.Panel>
             </Transition>
           </Popover>
-
         </div>
       </div>      
     </div>
