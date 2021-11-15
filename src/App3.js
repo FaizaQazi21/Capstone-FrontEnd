@@ -1,11 +1,9 @@
+import './App.css';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { history } from '../../helpers/history';
-import { Role } from '../../helpers/role';
+import { history } from './helpers/history';
+import { Role } from './helpers/role';
 import { authenticationService } from '../../services/authentication.service';
-import ExampleLanding from '../../components/Landing'; 
-import ExampleLandingAdmin from '../../components/LandingAdmin';
-import ExampleLandingUser from '../../components/LandingUser';
 
 //root component: routes, outter html, main navbar
 
@@ -40,22 +38,19 @@ class App extends React.Component {
         const { currentUser, isAdmin } = this.state;
         return (
                 <div>
-                    {currentUser && isAdmin &&
-                        <div>
-                            <a onClick={this.logout} className="nav-item nav-link">Logout</a>
-                            <ExampleLandingAdmin/>
-                        </div>
-                    }
-                    {currentUser && !isAdmin &&
-                        <div>
-                            <a onClick={this.logout} className="nav-item nav-link">Logout</a>
-                            <ExampleLandingUser/>
-                        </div>
+                    {currentUser &&
+                        <nav className="navbar navbar-expand navbar-dark bg-dark">
+                            <div className="navbar-nav">
+                                <Link to="/" className="nav-item nav-link">Home</Link>
+                                {isAdmin && <Link to="/admin" className="nav-item nav-link">Admin</Link>}
+                                <a onClick={this.logout} className="nav-item nav-link">Logout</a>
+                            </div>
+                        </nav>
                     }
                     {
                     !currentUser &&
                         <div>
-                            <ExampleLanding/>
+                        ola
                         </div>
                     }
                 </div>
@@ -63,4 +58,4 @@ class App extends React.Component {
     }
 }
 
-export { App };
+export default { App };
