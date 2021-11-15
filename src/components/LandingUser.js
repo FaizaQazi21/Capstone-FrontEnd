@@ -10,7 +10,7 @@ import logo1 from '../assets/logo1.jpg';
 export default function ExampleLandingUser(props) {
   
   const navigation = [
-    { name: 'Search Projects', href: '#' },
+    { name: 'Search Projects', href: '/user/projects' },
     { name: 'My tasks', href: `/user/tasks/1` },
   ]
   
@@ -112,18 +112,9 @@ export default function ExampleLandingUser(props) {
               </Popover.Panel>
             </Transition>
           </Popover>
-
-         
-
         </div>
       </div>
-      
     </div>
-   
-        
- </>
-
-    
+ </> 
   )
-  
 }
