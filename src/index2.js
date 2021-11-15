@@ -9,10 +9,8 @@ import {
   Route
 } from "react-router-dom";
 import Login from './routes/login';
-import A from './routes/a';
-import AID from './routes/aid';
 import User from './routes/user';
-import Admin from './routes/admin';
+import AdminPage from './routes/admin';
 import Projects from './routes/admin/projects';
 import Project from './routes/project';
 import ProjectBase from './routes/projectbase';
@@ -30,7 +28,7 @@ ReactDOM.render(
         <Route path="/" element={<App />} />
         <Route path="login" element={<Login />} />
         <Route path="user" element={<User />} />
-        <Route path="admin" element={<Admin />} />
+        <Route path="admin" element={<AdminPage />} />
         <Route path="projects" element={<Projects />}/>
         <Route path="project" element={<ProjectBase />}>
           <Route path=":projectID" element={<Project />}>
@@ -46,25 +44,7 @@ ReactDOM.render(
         </Route>
         <Route path="createuser" element={<CreateUser />} />
         <Route path="createproject" element={<CreateProject />} />
-        <Route path="a" element={<A />}>
-            <Route
-            index
-            element={
-              <main style={{ padding: "1rem" }}>
-                <p>Select an invoice</p>
-              </main>
-            }
-            />
-          <Route path=":aID" element={<AID />} />
-        </Route>
-        <Route
-          path="*"
-          element={
-            <main style={{ padding: "1rem" }}>
-              <p>There's nothing here!</p>
-            </main>
-          }
-        />
+        
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,

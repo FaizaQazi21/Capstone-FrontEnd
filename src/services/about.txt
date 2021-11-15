@@ -1,0 +1,15 @@
+The services layer handles all http communication with backend apis 
+for the application
+
+-each service encapsulates the api calls 
+for a content type (e.g. users) and exposes methods 
+for performing various operations (e.g. CRUD operations). 
+
+Services can also have methods that don't wrap http calls, 
+for example the authenticationService.logout() method just 
+removes the currentUser object from localStorage and 
+sets it to null in the application.
+
+Wrapping http calls and implementation details in a 
+services layer provides a clean separation 
+of concerns and simplifies the react components that use the services
