@@ -8,6 +8,7 @@ class UserFormClass extends React.Component{
         super(props);
         const user = getUser(parseInt(props.id));
         this.state = {
+            id: user ? user.id : '',
             name:  user ? user.name : '', 
             role: user ? user.role : '',
             email: user ? user.email : '', 

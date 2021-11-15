@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
 import Card from '@material-tailwind/react/Card';
 import CardBody from '@material-tailwind/react/CardBody';
 import { Link } from "react-router-dom";
+import { getTaskByuserID } from "../../data";
 import {useParams} from 'react-router-dom';
 import { EyeIcon } from '@heroicons/react/outline'
 import { Button } from '@material-ui/core';
+import { useState, useEffect } from 'react';
 
  
 
@@ -13,26 +14,32 @@ export default function TaskList() {
     
     const  param  = useParams();
     var id = parseInt(param.userID);
+    const [tasks, setTasks] = useState([]);
 
-    const[tasks, setTasks] = useState([]);
-    console.log("this is userid " + id)
+    
+
     //getting
     useEffect(() => {
-    fetch(`http://localhost:8080/api/task/user/1`
-        
+        fetch("http://localhost:8080/api/task/user/1"
         )
-
             .then(response => {
                 if (response.status !== 200) {
                     return Promise.reject("Fetch failed")
                 }
+                console.log("response is: " + response.status)
+                
                 return response.json();
+                
             })
             .then(json => setTasks(json))
             .catch(console.log);
+
+            
+
+            
     }, []);
 
-    console.log("this is length " + tasks.length)
+    
 
     return (
       <>
@@ -60,10 +67,10 @@ export default function TaskList() {
                                 </th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody> 
 
                         {tasks.length>0 ? tasks.map(function(d, idx){
-                            let link = "/user/project/task/" + (d.userId);
+                            let link = "/user/project/task/" + (d.taskId).toString();
                             
                             return (
                                 <tr key={idx}>
@@ -90,7 +97,11 @@ export default function TaskList() {
                             </tr>
                             )
                         }):
-                         (<tr><th colspan="5" className="font-mediumlight text-sm whitespace-nowrap px-2 py-4 ">No task found</th></tr>)
+                         (
+                            <tr>
+                                <th colSpan="5" className="font-mediumlight text-sm whitespace-nowrap px-2 py-4 ">No task found</th>
+                            </tr>
+                         )
                         }
                         </tbody>
                     </table>

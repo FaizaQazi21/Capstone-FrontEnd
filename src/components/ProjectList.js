@@ -20,11 +20,15 @@ export default function ListView() {
                 if (response.status !== 200) {
                     return Promise.reject("Fetch failed")
                 }
+                console.log("response is: " + response.json)
                 return response.json();
             })
             .then(json => setProject(json))
             .catch(console.log);
+            
     }, []);
+
+    
 
     return (
       <>
@@ -60,6 +64,7 @@ export default function ListView() {
                         {project.map(function(d, idx){
                             let linkEdit = "/editproject/" + (d.id).toString();
                             let link = "/project/" + (d.id).toString();
+                            console.log("project: " + project.length)
                             return (
                                 <tr key={idx}>
                                 <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
