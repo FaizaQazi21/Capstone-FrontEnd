@@ -10,8 +10,12 @@ import {
 } from "react-router-dom";
 import Login from './routes/login';
 import User from './routes/user';
-import AdminPage from './routes/admin';
+import Admin from './routes/admin';
 import Projects from './routes/admin/projects';
+import UserProjects from './routes/user/projects';
+import ProjectTasks from "./routes/user/projectTasks";
+import ViewTask from "./routes/user/taskView";
+import UserTasks from './routes/user/userTasks';
 import Project from './routes/project';
 import ProjectBase from './routes/projectbase';
 import ManageUsers from './routes/admin/manageUsers';
@@ -28,7 +32,11 @@ ReactDOM.render(
         <Route path="/" element={<App />} />
         <Route path="login" element={<Login />} />
         <Route path="user" element={<User />} />
-        <Route path="admin" element={<AdminPage />} />
+        <Route exact path="user/projects" element={<UserProjects />} />
+        <Route exact path="user/projectTasks/:projectID" element={<ProjectTasks />} />
+        <Route exact path="user/tasks/:userID" element={<UserTasks />} />
+        <Route exact path="/user/project/task/:taskID" element={<ViewTask />} />
+        <Route path="admin" element={<Admin />} />
         <Route path="projects" element={<Projects />}/>
         <Route path="project" element={<ProjectBase />}>
           <Route path=":projectID" element={<Project />}>
@@ -44,7 +52,7 @@ ReactDOM.render(
         </Route>
         <Route path="createuser" element={<CreateUser />} />
         <Route path="createproject" element={<CreateProject />} />
-        
+
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,

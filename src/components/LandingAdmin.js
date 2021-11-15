@@ -42,7 +42,7 @@ export default function ExampleLandingAdmin(props) {
                     <a href="/admin">
                       <span className="sr-only">Workflow</span>
                       <img
-                        className="h-8 w-auto sm:h-16 rounded-sm"
+                        className="h-8 w-auto sm:h-16 rounded-sm" alt="logo"
                         src={logo1}
                       >
                       </img>
