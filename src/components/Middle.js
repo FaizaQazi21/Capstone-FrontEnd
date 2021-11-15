@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Container } from '@mui/material';
 import iquad from '../assets/iquad.png';
 
 export default function MiddleContent() {

@@ -1,42 +1,41 @@
-
 import Card from '@material-tailwind/react/Card';
 import CardBody from '@material-tailwind/react/CardBody';
-import Progress from '@material-tailwind/react/Progress';
-import { AdjustmentsIcon, EyeIcon } from '@heroicons/react/outline'
-import { Button } from '@material-ui/core';
 import { Link } from "react-router-dom";
-import { getProjects } from "../data";
+import { getTaskByProjectID } from "../../data";
+import {useParams} from 'react-router-dom';
+import { EyeIcon } from '@heroicons/react/outline'
+import { Button } from '@material-ui/core';
+
  
 
   
-export default function ListView() {
-    const data = getProjects();
-
+export default function TaskList() {
+    
+    const  param  = useParams();
+    var id = parseInt(param.projectID);
+    let data = getTaskByProjectID(id);
+    console.log(data.length)
 
     return (
       <>
         <Card>
-            <button
-                  className="flex ml-4 py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-yellow-500 hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                >
-                  <Link to="/createproject">Create new project</Link>                  
-            </button>
+           
             <CardBody>
                 <div className="overflow-x-auto">
                     <table className="items-center w-full bg-transparent border-collapse">
                         <thead>
                             <tr>
                                 <th className="px-2 text-blue-900 align-middle border-b border-solid border-gray-200 py-3 text-sm whitespace-nowrap text-left">
-                                    Project
+                                    Task Name
                                 </th>
                                 <th className="px-2 text-blue-900 align-middle border-b border-solid border-gray-200 py-3 text-sm whitespace-nowrap  text-left">
-                                    Tasks
+                                    Project Name
                                 </th>
                                 <th className="px-2 text-blue-900 align-middle border-b border-solid border-gray-200 py-3 text-sm whitespace-nowrap text-left">
                                     Status
                                 </th>
                                 <th className="px-2 text-blue-900 align-middle border-b border-solid border-gray-200 py-3 text-sm whitespace-nowrap text-left">
-                                    Completion
+                                    Total Time
                                 </th>
                                 <th className="px-2 text-blue-900 align-middle border-b border-solid border-gray-200 py-3 text-sm whitespace-nowrap text-left">
                                     Options
@@ -44,32 +43,36 @@ export default function ListView() {
                             </tr>
                         </thead>
                         <tbody>
-                        {data.map(function(d, idx){
-                            let link = "/projects/" + (d.id).toString();
+                           
+                        {data.length>0 ? data.map(function(d, idx){
+                            let link = "/user/project/task/" + (d.taskId).toString();
                             return (
                                 <tr key={idx}>
                                 <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
-                                    <Link to={link}>{d.name}</Link>
+                                    {d.TaskName}
                                 </th>
                                 <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
-                                    17
+                                    {d.projectName}
                                 </th>
                                 <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
-                                    <i className="fas fa-circle fa-sm text-orange-500"></i>{' '}
-                                    Started
+                                 
+                                    {d.Status}
                                 </th>
                                 <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
-                                    <Progress color="red" value="60" />
+                                    {d.TotalHR}
                                 </th>
                                 <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
+                                <Link to={link}>
                                     <Button className="">
                                         <EyeIcon className="max-h-7 text-yellow-500 hover:bg-yellow-600"/>
-                                        <AdjustmentsIcon className="pl-1 max-h-7 text-yellow-500 hover:bg-yellow-600"/>
                                     </Button>
+                                </Link>
                                 </th>
                             </tr>
                             )
-                        })}
+                        }):
+                         (<tr><th colspan="5" className="font-mediumlight text-sm whitespace-nowrap px-2 py-4 ">No task found</th></tr>)
+                        }
                         </tbody>
                     </table>
                 </div>

@@ -34,7 +34,15 @@ let invoices = [
   const data = [
     {"id": 1, "name":"Project1"}, 
     {"id": 2,"name":"Project2"},
-    {"id": 3,"name":"Project3"}];
+    {"id": 3,"name":"Project3"},
+    {"id": 4,"name":"Project4"}];
+
+    let taskdata = [
+      {projectId: 1, projectName:"Project1",taskId:1, TaskName: "Task1",userID:1, Status:"Available",Description: "Create New Task in DB",Notes: "Yet to start", TotalHR:"0"}, 
+      {projectId: 2, projectName:"Project2",taskId:2, TaskName: "Task2",userID:2, Status:"Inprogress",Description: "Create New Project in DB",Notes: "Working on Task",TotalHR:"05:02:00"},
+      {projectId: 3, projectName:"Project3",taskId:3, TaskName: "Task3",userID:2, Status:"Completed",Description: "Update the Task in DB",Notes: "Task Completed",TotalHR:"02:02:00"},
+      {projectId: 4, projectName:"Project4",taskId:4, TaskName: "Task3",userID:2, Status:"Hold",Description: "Update the Task in DB",Notes: "Task Completed",TotalHR:"12:22:00"}];
+    
 
   export function getInvoices() {
     return invoices;
@@ -47,6 +55,28 @@ let invoices = [
   export function getProject(id) {
     return data.find(
       p => p.id === id
+    );
+  }
+  export function getTasks() {
+    return taskdata;
+  }
+
+  export function getTaskByProjectID(id) {
+   
+    return taskdata.filter(
+      p => p.projectId === id
+    );
+  }
+  export function getTaskByID(id) {
+   
+    return taskdata.filter(
+      p => p.taskId === id
+    );
+  }
+  export function getTaskByuserID(id) {
+   
+    return taskdata.filter(
+      p => p.userID === id
     );
   }
 

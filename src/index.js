@@ -14,6 +14,10 @@ import AID from './routes/aid';
 import User from './routes/user';
 import Admin from './routes/admin';
 import Projects from './routes/admin/projects';
+import UserProjects from './routes/user/projects';
+import ProjectTasks from "./routes/user/projectTasks";
+import ViewTask from "./routes/user/taskView";
+import UserTasks from './routes/user/userTasks';
 import Project from './routes/project';
 import ManageUsers from './routes/admin/manageUsers';
 import CreateUser from './routes/admin/createUser';
@@ -26,6 +30,10 @@ ReactDOM.render(
         <Route path="/" element={<App />} />
         <Route path="login" element={<Login />} />
         <Route path="user" element={<User />} />
+        <Route exact path="user/projects" element={<UserProjects />} />
+        <Route exact path="user/projectTasks/:projectID" element={<ProjectTasks />} />
+        <Route exact path="user/tasks/:userID" element={<UserTasks />} />
+        <Route exact path="/user/project/task/:taskID" element={<ViewTask />} />
         <Route path="admin" element={<Admin />} />
         <Route path="projects" element={<Projects />} >
           <Route path=":projectID" element={<Project />} />
