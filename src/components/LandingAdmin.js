@@ -4,7 +4,7 @@ import { Fragment } from 'react';
 import { Popover, Transition } from '@headlessui/react';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
 import logo1 from '../assets/logo1.jpg';
-import { Link } from "react-router-dom";
+
 
 const navigation = [
   { name: 'Dashboard', href: '#' },
@@ -35,7 +35,7 @@ export default function ExampleLandingAdmin() {
                     <a href="/admin">
                       <span className="sr-only">Workflow</span>
                       <img
-                        className="h-8 w-auto sm:h-16 rounded-sm"
+                        className="h-8 w-auto sm:h-16 rounded-sm" alt=""
                         src={logo1}
                       >
                       </img>
@@ -50,12 +50,13 @@ export default function ExampleLandingAdmin() {
                 </div>
                 <div className="hidden md:block md:ml-10 md:pr-4 md:space-x-8">
                   {navigation.map((item) => (
-                    <a href="#" className="font-medium text-blue-900 hover:text-gray-900">
-                      <Link to={item.href}>{item.name}</Link>
+                    <a  key={item.name}
+                    href={item.href} className="font-medium text-blue-900 hover:text-gray-900">
+                      {item.name}
                     </a>
                   ))}
-                  <a href="#" className="font-bold text-yellow-500 hover:text-gray-900">
-                    <Link to="/login">Sign Out</Link>
+                  <a href="/login" className="font-bold text-yellow-500 hover:text-gray-900">
+                    Sign Out
                   </a>
                 </div>
               </nav>

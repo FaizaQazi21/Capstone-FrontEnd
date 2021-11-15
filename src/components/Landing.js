@@ -5,7 +5,6 @@ import { Popover, Transition } from '@headlessui/react';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
 import logo from '../assets/logo-graphic.png';
 import logo1 from '../assets/logo1.jpg';
-import { Link } from "react-router-dom";
 
 const navigation = [
   { name: 'About', href: '#' },
@@ -31,10 +30,10 @@ export default function ExampleLanding() {
               <nav className="relative flex items-center justify-between sm:h-10 lg:justify-start" aria-label="Global">
                 <div className="flex items-center flex-grow flex-shrink-0 lg:flex-grow-0">
                   <div className="flex items-center justify-between w-full md:w-auto">
-                    <a href="#">
+                    <a href="/">
                       <span className="sr-only">Workflow</span>
                       <img
-                        className="h-8 w-auto sm:h-16 rounded-sm"
+                        className="h-8 w-auto sm:h-16 rounded-sm" alt=""
                         src={logo1}
                       />
                     </a>
@@ -52,8 +51,8 @@ export default function ExampleLanding() {
                       {item.name}
                     </a>
                   ))}
-                  <a href="#" className="font-bold text-yellow-500 hover:text-gray-900">
-                    <Link to="/login">Log in</Link>
+                  <a href="/login" className="font-bold text-yellow-500 hover:text-gray-900">
+                    Log in
                   </a>
                 </div>
               </nav>
@@ -123,7 +122,7 @@ export default function ExampleLanding() {
               <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
                 <div className="rounded-md shadow">
                   <a
-                    href="#"
+                    href="/"
                     className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-yellow-500 hover:bg-yellow-600 md:py-4 md:text-lg md:px-10"
                   >
                     Get started
@@ -131,7 +130,7 @@ export default function ExampleLanding() {
                 </div>
                 <div className="mt-3 sm:mt-0 sm:ml-3">
                   <a
-                    href="#"
+                    href="/"
                     className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-blue-900 bg-indigo-100 hover:bg-indigo-200 md:py-4 md:text-lg md:px-10"
                   >
                     Live demo
