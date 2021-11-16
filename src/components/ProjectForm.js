@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { getProject } from '../data';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { userService } from '../services/user.service';
 
 class ProjectFormClass extends React.Component{
     constructor(props) {
@@ -36,7 +36,23 @@ class ProjectFormClass extends React.Component{
         //alert('The Project was saved!');
         //event.preventDefault();
         event.preventDefault();
-        fetch('http://localhost:8080/api/project/', {
+        // fetch('http://localhost:8080/api/project/', {
+        //     method: 'POST',
+        //     headers: {
+        //     'Accept': 'application/json',
+        //     'Content-Type': 'application/json'
+        //     },
+        //     body: JSON.stringify({
+        //     name: this.state.name,
+        //     project_description: this.state.project_description,
+        //     priority: this.state.priority
+        //     })
+        // })
+        // .then(res => res.json())
+        // .then(data => console.log(data))
+        // .catch(err => console.log(err));
+
+        const options = {
             method: 'POST',
             headers: {
             'Accept': 'application/json',
@@ -47,10 +63,9 @@ class ProjectFormClass extends React.Component{
             project_description: this.state.project_description,
             priority: this.state.priority
             })
-        })
-        .then(res => res.json())
-        .then(data => console.log(data))
-        .catch(err => console.log(err));
+        }
+
+        userService.createProject(options).then(res => console.log(res));
 
         this.props.navigate('/projects');   
     }

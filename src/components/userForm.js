@@ -11,7 +11,7 @@ class UserFormClass extends React.Component{
         this.state = {
             id: user ? user.id : '',
             name:  user ? user.name : '', 
-            role: user ? user.role : '',
+            role: user ? user.role : 'User',
             email: user ? user.email : '', 
             password: user ? user.password : '' 
             
@@ -38,24 +38,9 @@ class UserFormClass extends React.Component{
         //event.preventDefault();
         //this.props.navigate('/users');
         event.preventDefault();
-        // fetch('http://localhost:8080/api/user/', {
-        //     method: 'POST',
-        //     headers: {
-        //     'Accept': 'application/json',
-        //     'Content-Type': 'application/json'
-        //     },
-        //     body: JSON.stringify({
-        //         name: this.state.name,
-        //         role: this.state.role,
-        //         email: this.state.email,
-        //         password: this.state.password
-        //     })
-        // })
-        // .then(res => res.json())
-        // .then(data => console.log(data))
-        // .catch(err => console.log(err));
+        
 
-        const body = {
+        const options = {
                  method: 'POST',
                  headers: {
                  'Accept': 'application/json',
@@ -68,15 +53,14 @@ class UserFormClass extends React.Component{
                      password: this.state.password
                  })
         }
-        console.log("create")
-        userService.createUser(body).then(res => console.log(res.json()));
-        console.log("done")
+        
+        userService.createUser(options).then(res => console.log(res));
+        
         this.props.navigate('/users');   
     }
 
     render() {
     
-
     return (
         <>
             <div>

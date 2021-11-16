@@ -16,7 +16,9 @@ export const userService = {
     getById,
     getAllProjects,
     getAllUsers,
-    createUser
+    getUser,
+    createUser,
+    createProject
 };
 
 function getAll() {
@@ -39,12 +41,19 @@ function getAllUsers(){
     return fetch(`http://localhost:8080/api/user`, requestOptions).then(handleResponse);
 }
 
-function createUser(props){
-    const headers = props.headers
-    console.log("............")
-    console.log(headers)
-    headers.Authorization = authHeader().Authorization
-    const requestOptions = { method: props.method, headers: headers, body: props.body };
-    console.log(requestOptions)
+function getUser(){
+    const requestOptions = { method: 'GET', headers: authHeader() };
     return fetch(`http://localhost:8080/api/user`, requestOptions).then(handleResponse);
+}
+
+function createUser(options){
+    const requestOptions = options
+    requestOptions.Authorization = authHeader().Authorization
+    return fetch(`http://localhost:8080/api/user/`, requestOptions).then(handleResponse);
+}
+
+function createProject(options){
+    const requestOptions = options
+    requestOptions.Authorization = authHeader().Authorization
+    return fetch(`http://localhost:8080/api/project/`, requestOptions).then(handleResponse);
 }
