@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+
 
 let invoices = [
     {
@@ -54,7 +54,7 @@ let users = [
     console.log(users);
 
     return users.find(
-      u => u.id == id
+      u => u.id === id
     );
   }
 

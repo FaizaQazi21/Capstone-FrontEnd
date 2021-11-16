@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Card from '@material-tailwind/react/Card';
 import CardBody from '@material-tailwind/react/CardBody';
 import Progress from '@material-tailwind/react/Progress';
-import { AdjustmentsIcon, EyeIcon } from '@heroicons/react/outline'
+import { EyeIcon } from '@heroicons/react/outline'
 import { Button } from '@material-ui/core';
 import { Link } from "react-router-dom";
 import { userService } from '../../services/user.service';
@@ -29,7 +29,7 @@ class ListViewClass extends React.Component {
             <button
                 className="flex ml-3 py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-yellow-500 hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
-                <Link to="/createproject">Create new project</Link>                  
+                <Link to="/createproject">Create new project</Link>
             </button>
             <CardBody>
                 <div className="overflow-x-auto">
