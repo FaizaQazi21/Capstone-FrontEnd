@@ -1,11 +1,11 @@
+import React, { useState, useEffect } from 'react';
 import Card from '@material-tailwind/react/Card';
 import CardBody from '@material-tailwind/react/CardBody';
 import { Link } from "react-router-dom";
-import { getTaskByuserID } from "../../data";
 import {useParams} from 'react-router-dom';
 import { EyeIcon } from '@heroicons/react/outline'
 import { Button } from '@material-ui/core';
-import { useState, useEffect } from 'react';
+
 
  
 
@@ -15,18 +15,18 @@ export default function TaskList() {
     const  param  = useParams();
     var id = parseInt(param.userID);
     const [tasks, setTasks] = useState([]);
-
+    
     
 
     //getting
     useEffect(() => {
-        fetch("http://localhost:8080/api/task/user/1"
+        fetch(`http://localhost:8080/api/task/user/${id}`
         )
             .then(response => {
                 if (response.status !== 200) {
                     return Promise.reject("Fetch failed")
                 }
-                console.log("response is: " + response.status)
+               
                 
                 return response.json();
                 
@@ -70,22 +70,22 @@ export default function TaskList() {
                         <tbody> 
 
                         {tasks.length>0 ? tasks.map(function(d, idx){
-                            let link = "/user/project/task/" + (d.taskId).toString();
+                            let link = "/user/project/task/" + (d.task_id).toString();
                             
                             return (
                                 <tr key={idx}>
                                 <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
-                                    {d.TaskName}
+                                    {d.task_name}
                                 </th>
                                 <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
-                                    {d.projectName}
+                                    {d.project_name}
                                 </th>
                                 <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
                                  
-                                    {d.Status}
+                                    {d.status}
                                 </th>
                                 <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
-                                    {d.TotalHR}
+                                    {d.total_hours}
                                 </th>
                                 <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
                                 <Link to={link}>

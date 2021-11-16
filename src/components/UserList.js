@@ -4,7 +4,7 @@ import CardBody from '@material-tailwind/react/CardBody';
 import { AdjustmentsIcon } from '@heroicons/react/outline'
 import { Button } from '@material-ui/core';
 import { Link } from "react-router-dom";
-import { getUsers } from "../data";
+
 
 
   

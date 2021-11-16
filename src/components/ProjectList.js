@@ -5,7 +5,7 @@ import Progress from '@material-tailwind/react/Progress';
 import { AdjustmentsIcon, EyeIcon } from '@heroicons/react/outline'
 import { Button } from '@material-ui/core';
 import { Link } from "react-router-dom";
-import { getProjects } from "../data";
+
  
   
 export default function ListView() {
