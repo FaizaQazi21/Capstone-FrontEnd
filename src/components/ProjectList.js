@@ -5,32 +5,26 @@ import Progress from '@material-tailwind/react/Progress';
 import { AdjustmentsIcon, EyeIcon } from '@heroicons/react/outline'
 import { Button } from '@material-ui/core';
 import { Link } from "react-router-dom";
-import { getProjects } from "../data";
- 
+import { userService } from '../services/user.service';
+
   
-export default function ListView() {
-    //const data = getProjects();
-    const [project, setProject] = useState([]);
-     
-    //getting
-    useEffect(() => {
-        fetch("http://localhost:8080/api/project"
-        )
-            .then(response => {
-                if (response.status !== 200) {
-                    return Promise.reject("Fetch failed")
-                }
-                console.log("response is: " + response.json)
-                return response.json();
-            })
-            .then(json => setProject(json))
-            .catch(console.log);
-            
-    }, []);
+class ListViewClass extends React.Component {
+    constructor(props) {
+        super(props);
 
-    
+        this.state = {
+            projects: null
+        };
+    }
 
-    return (
+    componentDidMount() {
+        userService.getAllProjects().then(projects => this.setState({ projects }));
+    }
+  
+ 
+    render () {
+        const { projects } = this.state;
+        return (
       <>
         <Card>
             <button
@@ -60,11 +54,12 @@ export default function ListView() {
                                 </th>
                             </tr>
                         </thead>
+                        {projects &&
                         <tbody>
-                        {project.map(function(d, idx){
+                        {projects.map(function(d, idx){
                             let linkEdit = "/editproject/" + (d.id).toString();
                             let link = "/project/" + (d.id).toString();
-                            console.log("project: " + project.length)
+                            console.log("project: " + projects.length)
                             return (
                                 <tr key={idx}>
                                 <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
@@ -96,10 +91,17 @@ export default function ListView() {
                             )
                         })}
                         </tbody>
+                        }
                     </table>
                 </div>
             </CardBody>
         </Card>
       </>
-    )
-  }
+        );
+    }
+}
+
+
+export default function ListView(props) {
+    return <ListViewClass {...props}/>
+}

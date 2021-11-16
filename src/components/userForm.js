@@ -2,6 +2,7 @@ import * as React from 'react';
 import { getUser } from "../data";
 import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
+import { userService } from '../services/user.service';
 
 class UserFormClass extends React.Component{
     constructor(props) {
@@ -37,23 +38,39 @@ class UserFormClass extends React.Component{
         //event.preventDefault();
         //this.props.navigate('/users');
         event.preventDefault();
-        fetch('http://localhost:8080/api/user/', {
-            method: 'POST',
-            headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                name: this.state.name,
-                role: this.state.role,
-                email: this.state.email,
-                password: this.state.password
-            })
-        })
-        .then(res => res.json())
-        .then(data => console.log(data))
-        .catch(err => console.log(err));
+        // fetch('http://localhost:8080/api/user/', {
+        //     method: 'POST',
+        //     headers: {
+        //     'Accept': 'application/json',
+        //     'Content-Type': 'application/json'
+        //     },
+        //     body: JSON.stringify({
+        //         name: this.state.name,
+        //         role: this.state.role,
+        //         email: this.state.email,
+        //         password: this.state.password
+        //     })
+        // })
+        // .then(res => res.json())
+        // .then(data => console.log(data))
+        // .catch(err => console.log(err));
 
+        const body = {
+                 method: 'POST',
+                 headers: {
+                 'Accept': 'application/json',
+                 'Content-Type': 'application/json'
+                 },
+                 body: JSON.stringify({
+                     name: this.state.name,
+                     role: this.state.role,
+                     email: this.state.email,
+                     password: this.state.password
+                 })
+        }
+        console.log("create")
+        userService.createUser(body).then(res => console.log(res.json()));
+        console.log("done")
         this.props.navigate('/users');   
     }
 

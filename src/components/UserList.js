@@ -4,27 +4,41 @@ import CardBody from '@material-tailwind/react/CardBody';
 import { AdjustmentsIcon } from '@heroicons/react/outline'
 import { Button } from '@material-ui/core';
 import { Link } from "react-router-dom";
-import { getUsers } from "../data";
+import { userService } from '../services/user.service';
 
 
   
-export default function UserListView() {
-    const [user, setUser] = useState([]);
+class UserListViewClass extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            users: null
+        };
+    }
      
+
+    componentDidMount() {
+        userService.getAllUsers().then(users => this.setState({ users }));
+    }
+
     //getting
-    useEffect(() => {
-        fetch("http://localhost:8080/api/user"
-        )
-            .then(response => {
-                if (response.status !== 200) {
-                    return Promise.reject("Fetch failed")
-                }
-                return response.json();
-            })
-            .then(json => setUser(json))
-            .catch(console.log);
-    }, []);
-    return (
+    // useEffect(() => {
+    //     fetch("http://localhost:8080/api/user"
+    //     )
+    //         .then(response => {
+    //             if (response.status !== 200) {
+    //                 return Promise.reject("Fetch failed")
+    //             }
+    //             return response.json();
+    //         })
+    //         .then(json => setUser(json))
+    //         .catch(console.log);
+    // }, []);
+
+    render () {
+        const { users } = this.state;
+        return (
       <>
         <Card>
             <button
@@ -54,8 +68,9 @@ export default function UserListView() {
                                 </th>
                             </tr>
                         </thead>
+                        { users &&
                         <tbody>
-                        {user.map(function(d, idx){
+                        {users.map(function(d, idx){
                             let link = "/edituser/" + d.id; 
                             return (
                                 <tr key={idx}>
@@ -84,10 +99,16 @@ export default function UserListView() {
                             )
                         })}
                         </tbody>
+                        }
                     </table>
                 </div>
             </CardBody>
         </Card>
       </>
-    )
-  }
+        );
+    }
+}
+
+export default function UserListView(props) {
+    return <UserListViewClass {...props}/>
+}

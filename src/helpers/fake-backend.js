@@ -18,6 +18,7 @@ export function configureFakeBackend() {
 
         return new Promise((resolve, reject) => {
             // wrap in timeout to simulate server api call
+
             setTimeout(() => {
                 // authenticate - public
                 if (url.endsWith('/users/authenticate') && opts.method === 'POST') {
