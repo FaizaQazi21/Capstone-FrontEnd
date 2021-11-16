@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from 'react';
 import Card from '@material-tailwind/react/Card';
 import CardBody from '@material-tailwind/react/CardBody';
 import { AdjustmentsIcon } from '@heroicons/react/outline'
@@ -8,7 +9,21 @@ import { getUsers } from "../data";
 
   
 export default function UserListView() {
-    const data = getUsers();
+    const [user, setUser] = useState([]);
+     
+    //getting
+    useEffect(() => {
+        fetch("http://localhost:8080/api/user"
+        )
+            .then(response => {
+                if (response.status !== 200) {
+                    return Promise.reject("Fetch failed")
+                }
+                return response.json();
+            })
+            .then(json => setUser(json))
+            .catch(console.log);
+    }, []);
     return (
       <>
         <Card>
@@ -40,7 +55,7 @@ export default function UserListView() {
                             </tr>
                         </thead>
                         <tbody>
-                        {data.map(function(d, idx){
+                        {user.map(function(d, idx){
                             let link = "/edituser/" + d.id; 
                             return (
                                 <tr key={idx}>

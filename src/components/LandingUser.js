@@ -11,7 +11,7 @@ import { authenticationService } from '../services/authentication.service';
 
 const navigation = [
   { name: 'Search Projects', href: '/user/projects' },
-  { name: 'My tasks', href: '/user/tasks/2' },
+  { name: 'My tasks', href: '/user/tasks/1' },
 ]
 
 function logout(){
@@ -119,18 +119,9 @@ export default function ExampleLandingUser() {
               </Popover.Panel>
             </Transition>
           </Popover>
-
-
-
         </div>
       </div>
-
     </div>
-
-
  </>
-
-
   )
-
 }

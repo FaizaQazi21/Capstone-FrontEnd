@@ -5,6 +5,7 @@ import { getTaskByuserID } from "../../data";
 import {useParams} from 'react-router-dom';
 import { EyeIcon } from '@heroicons/react/outline'
 import { Button } from '@material-ui/core';
+import { useState, useEffect } from 'react';
 
  
 
@@ -13,7 +14,32 @@ export default function TaskList() {
     
     const  param  = useParams();
     var id = parseInt(param.userID);
-    let data = getTaskByuserID(id);
+    const [tasks, setTasks] = useState([]);
+
+    
+
+    //getting
+    useEffect(() => {
+        fetch("http://localhost:8080/api/task/user/1"
+        )
+            .then(response => {
+                if (response.status !== 200) {
+                    return Promise.reject("Fetch failed")
+                }
+                console.log("response is: " + response.status)
+                
+                return response.json();
+                
+            })
+            .then(json => setTasks(json))
+            .catch(console.log);
+
+            
+
+            
+    }, []);
+
+    
 
     return (
       <>
@@ -41,10 +67,11 @@ export default function TaskList() {
                                 </th>
                             </tr>
                         </thead>
-                        <tbody>
-                           
-                        {data.length>0 ? data.map(function(d, idx){
+                        <tbody> 
+
+                        {tasks.length>0 ? tasks.map(function(d, idx){
                             let link = "/user/project/task/" + (d.taskId).toString();
+                            
                             return (
                                 <tr key={idx}>
                                 <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
@@ -70,7 +97,11 @@ export default function TaskList() {
                             </tr>
                             )
                         }):
-                         (<tr><th colspan="5" className="font-mediumlight text-sm whitespace-nowrap px-2 py-4 ">No task found</th></tr>)
+                         (
+                            <tr>
+                                <th colSpan="5" className="font-mediumlight text-sm whitespace-nowrap px-2 py-4 ">No task found</th>
+                            </tr>
+                         )
                         }
                         </tbody>
                     </table>

@@ -8,10 +8,12 @@ class UserFormClass extends React.Component{
         super(props);
         const user = getUser(parseInt(props.id));
         this.state = {
+            id: user ? user.id : '',
             name:  user ? user.name : '', 
+            role: user ? user.role : '',
             email: user ? user.email : '', 
-            password: user ? user.password : '', 
-            role: user ? user.role : 'User'
+            password: user ? user.password : '' 
+            
         };
     
         this.handleChange = this.handleChange.bind(this);
@@ -31,9 +33,28 @@ class UserFormClass extends React.Component{
     
     handleSubmit(event) {
         //check when role null
-        alert('The User was saved!');
+        //alert('The User was saved!');
+        //event.preventDefault();
+        //this.props.navigate('/users');
         event.preventDefault();
-        this.props.navigate('/users');
+        fetch('http://localhost:8080/api/user/', {
+            method: 'POST',
+            headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name: this.state.name,
+                role: this.state.role,
+                email: this.state.email,
+                password: this.state.password
+            })
+        })
+        .then(res => res.json())
+        .then(data => console.log(data))
+        .catch(err => console.log(err));
+
+        this.props.navigate('/users');   
     }
 
     render() {
