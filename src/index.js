@@ -20,6 +20,10 @@ import UserView from './routes/admin/user';
 import Project from './routes/project';
 import ProjectBase from './routes/projectbase';
 import TaskList from './routes/tasklist';
+import UserProjects from './routes/user/projects';
+import ProjectTasks from "./routes/user/projectTasks";
+import ViewTask from "./routes/user/taskView";
+import UserTasks from './routes/user/userTasks';
 
 // setup fake backend
 import { configureFakeBackend } from './helpers/fake-backend';
@@ -102,6 +106,10 @@ ReactDOM.render(
             <Route path="tasks" element={<TaskList />}/>
           </Route>
         </Route>
+        <Route exact path="user/projects" element={<UserProjects />} />
+        <Route exact path="user/projectTasks/:projectID" element={<ProjectTasks />} />
+        <Route exact path="user/tasks/:userID" element={<UserTasks />} />
+        <Route exact path="/user/project/task/:taskID" element={<ViewTask />} />
     </Routes>
   </BrowserRouter>,
   document.getElementById('root')
