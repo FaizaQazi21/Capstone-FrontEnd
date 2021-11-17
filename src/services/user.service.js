@@ -1,6 +1,7 @@
 import config from '../config';
 import { authHeader } from '../helpers/auth-header';
 import { handleResponse } from '../helpers/handle-response';
+import { getTaskByProjectID } from "../data";//TEMP
 
 
 //accessing secure api endpoints with the http authorization header 
@@ -16,9 +17,14 @@ export const userService = {
     getById,
     getAllProjects,
     getAllUsers,
+    getProject,
     getUser,
     createUser,
-    createProject
+    createProject,
+    getUserTasks,
+    getProjectTasks,
+    getProjectTotalTasks,
+    getProjectFinishedTasks,
 };
 
 function getAll() {
@@ -41,9 +47,16 @@ function getAllUsers(){
     return fetch(`http://localhost:8080/api/user`, requestOptions).then(handleResponse);
 }
 
-function getUser(){
-    const requestOptions = { method: 'GET', headers: authHeader() };
-    return fetch(`http://localhost:8080/api/user`, requestOptions).then(handleResponse);
+//TODO
+function getProject(id){
+    //const requestOptions = { method: 'GET', headers: authHeader() };
+    //return fetch(`http://localhost:8080/api/project/${id}`, requestOptions).then(handleResponse);
+}
+
+//TODO
+function getUser(id){
+    //const requestOptions = { method: 'GET', headers: authHeader() };
+    //return fetch(`http://localhost:8080/api/user/${id}`, requestOptions).then(handleResponse);
 }
 
 function createUser(options){
@@ -56,4 +69,33 @@ function createProject(options){
     const requestOptions = options
     requestOptions.Authorization = authHeader().Authorization
     return fetch(`http://localhost:8080/api/project/`, requestOptions).then(handleResponse);
+}
+
+function getUserTasks(id){
+    const requestOptions = { method: 'GET', headers: authHeader() };
+    return fetch(`http://localhost:8080/api/task/user/${id}`, requestOptions).then(handleResponse);
+}
+
+//TODO
+function getProjectTasks(id){
+    let data = getTaskByProjectID(id);
+    return data;
+    //const requestOptions = { method: 'GET', headers: authHeader() };
+    //return fetch(`http://localhost:8080/api/task/project/${id}`, requestOptions).then(handleResponse);
+}
+
+//TODO
+function getProjectTotalTasks(id){
+    let data = getTaskByProjectID(id);
+    return data.length;
+    //const requestOptions = { method: 'GET', headers: authHeader() };
+    //return fetch(`http://localhost:8080/api/task/project/${id}`, requestOptions).then(handleResponse);
+}
+
+//TODO
+function getProjectFinishedTasks(id){
+    let data = getTaskByProjectID(id);
+    return data.length;
+    //const requestOptions = { method: 'GET', headers: authHeader() };
+    //return fetch(`http://localhost:8080/api/task/project/${id}`, requestOptions).then(handleResponse);
 }

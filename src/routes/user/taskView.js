@@ -1,4 +1,3 @@
-
 import ExampleLandingUser from "../../components/LandingUser";
 import View from "../../components/user/TaskView";
 

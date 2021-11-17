@@ -5,46 +5,24 @@ import { Link } from "react-router-dom";
 import {useParams} from 'react-router-dom';
 import { EyeIcon } from '@heroicons/react/outline'
 import { Button } from '@material-ui/core';
+import { userService } from '../../services/user.service';
 
 
- 
 
-  
-export default function TaskList() {
-    
+export default function UserTaskList() {
     const  param  = useParams();
     var id = parseInt(param.userID);
     const [tasks, setTasks] = useState([]);
-    
-    
+        
+    id=1;
 
-    //getting
     useEffect(() => {
-        fetch(`http://localhost:8080/api/task/user/${id}`
-        )
-            .then(response => {
-                if (response.status !== 200) {
-                    return Promise.reject("Fetch failed")
-                }
-               
-                
-                return response.json();
-                
-            })
-            .then(json => setTasks(json))
-            .catch(console.log);
-
-            
-
-            
+        userService.getUserTasks(id).then(tasks => setTasks( tasks ));
     }, []);
-
-    
 
     return (
       <>
         <Card>
-           
             <CardBody>
                 <div className="overflow-x-auto">
                     <table className="items-center w-full bg-transparent border-collapse">

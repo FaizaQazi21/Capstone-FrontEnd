@@ -11,7 +11,7 @@ import { authenticationService } from '../services/authentication.service';
 
 const navigation = [
   { name: 'Search Projects', href: '/user/projects' },
-  { name: 'My tasks', href: '/user/tasks/1' },
+  { name: 'My tasks', href: '/user/tasks' },
 ]
 
 function logout(){

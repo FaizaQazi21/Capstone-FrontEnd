@@ -1,10 +1,11 @@
+import React, { useState, useEffect } from 'react';
 import Card from '@material-tailwind/react/Card';
 import CardBody from '@material-tailwind/react/CardBody';
 import { Link } from "react-router-dom";
-import { getTaskByProjectID } from "../../data";
 import {useParams} from 'react-router-dom';
 import { EyeIcon } from '@heroicons/react/outline'
 import { Button } from '@material-ui/core';
+import { userService } from '../../services/user.service';
 
  
 
@@ -13,8 +14,13 @@ export default function TaskList() {
     
     const  param  = useParams();
     var id = parseInt(param.projectID);
-    let data = getTaskByProjectID(id);
-    console.log(data.length)
+    //let data = getTaskByProjectID(id);
+    //console.log(data.length)
+
+    const [tasks, setTasks] = useState([]);
+    useEffect(() => {
+        setTasks(userService.getProjectTasks(id));
+    }, []);
 
     return (
       <>
@@ -44,7 +50,7 @@ export default function TaskList() {
                         </thead>
                         <tbody>
                            
-                        {data.length>0 ? data.map(function(d, idx){
+                        {tasks.length>0 ? tasks.map(function(d, idx){
                             let link = "/user/project/task/" + (d.taskId).toString();
                             return (
                                 <tr key={idx}>

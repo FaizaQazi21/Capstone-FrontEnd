@@ -4,8 +4,13 @@ import H3 from '@material-tailwind/react/Heading3';
 import LeadText from '@material-tailwind/react/LeadText';
 import ProfilePicture from '../assets/logo1.jpg';
 import { Link } from "react-router-dom";
+import { userService } from '../services/user.service';
 
 export default function ProjectView({project}) {
+
+    let finishedTasks = userService.getProjectFinishedTasks(project.id);
+    let totalTasks = userService.getProjectTotalTasks(project.id);
+
     return (
       <>
         <section id="pro" className="relative pt-96">
@@ -36,19 +41,13 @@ export default function ProjectView({project}) {
                             <div className="flex flex-wrap justify-center">
                                 <div className="w-full lg:w-9/12 px-4 flex flex-col items-center">
                                     <LeadText color="blueGray">
-                                        An artist of considerable range, Jenna
-                                        the name taken by Melbourne-raised,
-                                        Brooklyn-based Nick Murphy writes,
-                                        performs and records all of his own
-                                        music, giving it a warm, intimate feel
-                                        with a solid groove structure. An artist
-                                        of considerable range.
+                                        {project.project_description}
                                     </LeadText>
                                     <div className="w-full lg:w-4/12 px-4 lg:order-1">
                                 <div className="flex justify-center py-4 lg:pt-4 pt-8">
                                     <div className="mr-4 p-3 text-center">
                                         <span className="text-xl font-bold block uppercase tracking-wide text-gray-900">
-                                            22
+                                            {totalTasks}
                                         </span>
                                         <span className="text-sm text-gray-700">
                                             Tasks
@@ -56,23 +55,33 @@ export default function ProjectView({project}) {
                                     </div>
                                     <div className="mr-4 p-3 text-center">
                                         <span className="text-xl font-bold block uppercase tracking-wide text-gray-900">
-                                            10
+                                            {finishedTasks}
                                         </span>
                                         <span className="text-sm text-gray-700">
                                             Finished
                                         </span>
                                     </div>
-                                    <div className="lg:mr-4 p-3 text-center">
+                                    <div className="mr-4 p-3 text-center">
                                         <span className="text-xl font-bold block uppercase tracking-wide text-gray-900">
-                                            7
+                                            #
                                         </span>
                                         <span className="text-sm text-gray-700">
                                             Users
                                         </span>
                                     </div>
+                                    <div className="mr-4 p-3 text-center">
+                                        <span className="text-xl font-bold block tracking-wide text-gray-900">
+                                            {project.priority}
+                                        </span>
+                                        <span className="text-sm text-gray-700">
+                                            Priority
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
-                                    <Link to="tasks">
+                                    <Link to="tasks"
+                                    state={{ project: project }}
+                                    >
                                         <Button
                                             color="lightBlue"
                                             buttonType="link"

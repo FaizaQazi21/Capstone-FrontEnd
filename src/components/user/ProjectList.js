@@ -56,21 +56,27 @@ class ListViewClass extends React.Component {
                         {projects &&
                         <tbody>
                         {projects.map(function(d, idx){
-                        let link = "/user/projectTasks/" + (d.id).toString();
+                            let link = "/user/projectTasks/" + (d.id).toString();
+
+                            let finishedTasks = userService.getProjectFinishedTasks(d.id);
+                            let totalTasks = userService.getProjectTotalTasks(d.id);
+                            let res = finishedTasks*100/totalTasks;
+
                         return (
                             <tr key={idx}>
                             <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
                                 <Link to={link}>{d.name}</Link>
                             </th>
                             <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
-                                17
+                                {totalTasks}
                             </th>
                             <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
                                 <i className="fas fa-circle fa-sm text-orange-500"></i>{' '}
                                 Started
                             </th>
                             <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
-                                <Progress color="red" value="60" />
+                                    <Progress color="green" value={ res } />
+                                    <span>{res} %</span>
                             </th>
                             <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
                             <Link to={link}>

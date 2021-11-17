@@ -9,7 +9,6 @@ import { history } from '../helpers/history';
 import { authenticationService } from '../services/authentication.service';
 
 const navigation = [
-  { name: 'Dashboard', href: '#' },
   { name: 'Projects', href: '/projects' },
   { name: 'Users', href: '/users' },
 ]

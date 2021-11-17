@@ -13,17 +13,19 @@ class ListViewClass extends React.Component {
         super(props);
 
         this.state = {
-            projects: null
+            projects: null,
         };
     }
 
+
     componentDidMount() {
-        userService.getAllProjects().then(projects => this.setState({ projects }));
+        userService.getAllProjects().then(projects => this.setState({ projects }));        
     }
   
  
     render () {
         const { projects } = this.state;
+
         return (
       <>
         <Card>
@@ -59,24 +61,34 @@ class ListViewClass extends React.Component {
                         {projects.map(function(d, idx){
                             let linkEdit = "/editproject/" + (d.id).toString();
                             let link = "/project/" + (d.id).toString();
+                            let linkTasks = "/projectTasks/" + (d.id).toString() + "/tasks";
                             console.log("project: " + projects.length)
+
+                            let finishedTasks = userService.getProjectFinishedTasks(d.id);
+                            let totalTasks = userService.getProjectTotalTasks(d.id);
+                            let res = finishedTasks*100/totalTasks;
+
                             return (
                                 <tr key={idx}>
                                 <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
-                                    <Link to={link}>{d.name}</Link>
+                                    <Link to={link}
+                                    state={{ project: d }}
+                                    >{d.name}</Link>
                                 </th>
                                 <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
-                                    17
+                                    {totalTasks}
                                 </th>
                                 <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
                                     <i className="fas fa-circle fa-sm text-orange-500"></i>{' '}
                                     Started
                                 </th>
                                 <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
-                                    <Progress color="red" value="60" />
+                                    <Progress color="green" value={ res } />
+                                    <span>{res} %</span>
                                 </th>
                                 <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
-                                    <Link to={link}>
+                                    <Link to={linkTasks}
+                                    >
                                         <Button className="">
                                             <EyeIcon className="max-h-7 text-yellow-500 "/>
                                         </Button>
