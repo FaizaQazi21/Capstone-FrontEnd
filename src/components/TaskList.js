@@ -20,8 +20,8 @@ export default function TaskList() {
     
     const [tasks, setTasks] = useState([]);
     useEffect(() => {
-        setTasks(userService.getProjectTasks(id));
-    }, []);
+        userService.getProjectTasks(id).then(tasks => setTasks( tasks ));
+    });
 
     return (
       <>
@@ -56,21 +56,21 @@ export default function TaskList() {
                         <tbody>
                            
                         {tasks.length>0 ? tasks.map(function(d, idx){
-                            let link = "/projectTasks/" + (d.taskId).toString() + "/tasks";
+                            let link = "/project/editTask/" + (d.task_id).toString() ;
                             return (
                                 <tr key={idx}>
                                 <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
-                                    {d.TaskName}
+                                    {d.task_name}
                                 </th>
                                 <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
-                                    {d.projectName}
+                                    {d.project_name}
                                 </th>
                                 <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
                                  
-                                    {d.Status}
+                                    {d.status}
                                 </th>
                                 <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
-                                    {d.TotalHR}
+                                    {d.total_hours}
                                 </th>
                                 <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
                                 {/* TODO this needs to link to edit task */}
@@ -83,7 +83,7 @@ export default function TaskList() {
                             </tr>
                             )
                         }):
-                         (<tr><th colspan="5" className="font-mediumlight text-sm whitespace-nowrap px-2 py-4 ">No task found</th></tr>)
+                         (<tr><th colSpan="5" className="font-mediumlight text-sm whitespace-nowrap px-2 py-4 ">No task found</th></tr>)
                         }
                         </tbody>
                     </table>

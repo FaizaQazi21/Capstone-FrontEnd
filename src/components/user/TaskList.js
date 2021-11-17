@@ -15,13 +15,14 @@ export default function TaskList() {
     const  param  = useParams();
     var id = parseInt(param.projectID);
     //let data = getTaskByProjectID(id);
-    //console.log(data.length)
+    console.log(id)
 
     const [tasks, setTasks] = useState([]);
     useEffect(() => {
-        setTasks(userService.getProjectTasks(id));
-    }, []);
-
+        userService.getProjectTasks(id).then(tasks => setTasks( tasks ));
+        
+    });
+console.log("list len"+tasks.length)
     return (
       <>
         <Card>
@@ -51,21 +52,21 @@ export default function TaskList() {
                         <tbody>
                            
                         {tasks.length>0 ? tasks.map(function(d, idx){
-                            let link = "/user/project/task/" + (d.taskId).toString();
+                            let link = "/user/project/task/" + (d.task_id).toString();
                             return (
                                 <tr key={idx}>
                                 <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
-                                    {d.TaskName}
+                                    {d.task_name}
                                 </th>
                                 <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
-                                    {d.projectName}
+                                    {d.project_name}
                                 </th>
                                 <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
                                  
-                                    {d.Status}
+                                    {d.status}
                                 </th>
                                 <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
-                                    {d.TotalHR}
+                                    {d.total_hours}
                                 </th>
                                 <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
                                 <Link to={link}>
@@ -77,7 +78,7 @@ export default function TaskList() {
                             </tr>
                             )
                         }):
-                         (<tr><th colspan="5" className="font-mediumlight text-sm whitespace-nowrap px-2 py-4 ">No task found</th></tr>)
+                         (<tr><th colSpan="5" className="font-mediumlight text-sm whitespace-nowrap px-2 py-4 ">No task found</th></tr>)
                         }
                         </tbody>
                     </table>

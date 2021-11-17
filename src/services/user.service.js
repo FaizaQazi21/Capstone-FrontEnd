@@ -17,6 +17,7 @@ export const userService = {
     getById,
     getAllProjects,
     getAllUsers,
+    getAllRoles,
     getProject,
     getUser,
     getTask,
@@ -27,6 +28,8 @@ export const userService = {
     getProjectTasks,
     getProjectTotalTasks,
     getProjectFinishedTasks,
+    updateProject,
+    updateUser
 };
 
 function getAll() {
@@ -49,22 +52,39 @@ function getAllUsers(){
     return fetch(`http://localhost:8080/api/user`, requestOptions).then(handleResponse);
 }
 
-//TODO
-function getProject(id){
-    //const requestOptions = { method: 'GET', headers: authHeader() };
-    //return fetch(`http://localhost:8080/api/project/${id}`, requestOptions).then(handleResponse);
+function getAllRoles(){
+    const requestOptions = { method: 'GET', headers: authHeader() };
+    return fetch(`http://localhost:8080/api/role`, requestOptions).then(handleResponse);
 }
 
-//TODO
+
+function getProject(id){
+    const requestOptions = { method: 'GET', headers: authHeader() };
+    return fetch(`http://localhost:8080/api/project/${id}`, requestOptions).then(handleResponse);
+}
+
+function updateProject(options,id){
+    const requestOptions = options
+    requestOptions.Authorization = authHeader().Authorization
+    return fetch(`http://localhost:8080/api/project/update/${id}`, requestOptions).then(handleResponse);
+}
+
+function updateUser(options,id){
+    const requestOptions = options
+    requestOptions.Authorization = authHeader().Authorization
+    return fetch(`http://localhost:8080/api/user/${id}`, requestOptions).then(handleResponse);
+}
+
+
 function getUser(id){
-    //const requestOptions = { method: 'GET', headers: authHeader() };
-    //return fetch(`http://localhost:8080/api/user/${id}`, requestOptions).then(handleResponse);
+    const requestOptions = { method: 'GET', headers: authHeader() };
+    return fetch(`http://localhost:8080/api/user/${id}`, requestOptions).then(handleResponse);
 }
 
 //TODO
 function getTask(id){
-    //const requestOptions = { method: 'GET', headers: authHeader() };
-    //return fetch(`http://localhost:8080/api/task/${id}`, requestOptions).then(handleResponse);
+    const requestOptions = { method: 'GET', headers: authHeader() };
+    return fetch(`http://localhost:8080/api/task/${id}`, requestOptions).then(handleResponse);
 }
 
 function createUser(options){
@@ -93,10 +113,8 @@ function getUserTasks(id){
 
 //TODO
 function getProjectTasks(id){
-    let data = getTaskByProjectID(id);
-    return data;
-    //const requestOptions = { method: 'GET', headers: authHeader() };
-    //return fetch(`http://localhost:8080/api/task/project/${id}`, requestOptions).then(handleResponse);
+    const requestOptions = { method: 'GET', headers: authHeader() };
+    return fetch(`http://localhost:8080/api/task/project/${id}`, requestOptions).then(handleResponse);
 }
 
 //TODO

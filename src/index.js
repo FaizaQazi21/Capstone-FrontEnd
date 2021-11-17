@@ -16,6 +16,7 @@ import ManageUsers from './routes/admin/manageUsers';
 import CreateProject from './routes/admin/createProject';
 import CreateUser from './routes/admin/createUser';
 import CreateTask from './routes/admin/createTask';
+import EditTask from './routes/admin/editTask';
 import EditProjectView from './routes/admin/project';
 import UserView from './routes/admin/user';
 import Project from './routes/project';
@@ -133,6 +134,7 @@ ReactDOM.render(
         <Route exact path="user/projectTasks/:projectID" element={<ProjectTasks />} />
         <Route path="user/tasks/" element={<UserTasks />} />
         <Route exact path="/user/project/task/:taskID" element={<ViewTask />} />
+        <Route exact path="project/editTask/:taskID" element={<EditTask />} />
     </Routes>
   </BrowserRouter>,
   document.getElementById('root')

@@ -3,7 +3,6 @@ import * as React from 'react';
 import { Fragment } from 'react';
 import { Popover, Transition } from '@headlessui/react';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
-import logo from '../assets/logo-graphic.png';
 import logo1 from '../assets/logo1.jpg';
 import { Link } from "react-router-dom";
 import { history } from '../helpers/history';
@@ -58,11 +57,11 @@ export default function ExampleLandingUser() {
                 </div>
                 <div className="hidden md:block md:ml-10 md:pr-4 md:space-x-8">
                   {navigation.map((item) => (
-                    <a key={item.name} href={item.href} className="font-medium text-blue-900 hover:text-gray-900">
+                    <a href={item.href} key={item.name}  className="font-medium text-blue-900 hover:text-gray-900">
                       {item.name}
                     </a>
                   ))}
-                  <a onClick={logout} className="font-bold text-yellow-500 hover:text-gray-900">
+                  <a href ="/" onClick={logout} className="font-bold text-yellow-500 hover:text-gray-900">
                     <Link to="/">Sign Out</Link>
                   </a>
                 </div>
@@ -100,16 +99,15 @@ export default function ExampleLandingUser() {
                   </div>
                   <div className="px-2 pt-2 pb-3 space-y-1">
                     {navigation.map((item) => (
-                      <a
+                      <a href={item.href}
                         key={item.name}
-                        href={item.href}
                         className="block px-3 py-2 rounded-md text-base font-medium text-blue-900 hover:text-gray-900 hover:bg-gray-50"
                       >
                         {item.name}
                       </a>
                     ))}
                   </div>
-                  <a
+                  <a href = "/"
                     onClick={logout}
                     className="block w-full px-5 py-3 text-center font-medium text-blue-900 bg-gray-50 hover:bg-gray-100"
                   >

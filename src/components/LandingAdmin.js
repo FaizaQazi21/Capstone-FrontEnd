@@ -55,12 +55,13 @@ export default function ExampleLandingAdmin() {
                   </div>
                 </div>
                 <div className="hidden md:block md:ml-10 md:pr-4 md:space-x-8">
-                  {navigation.map((item) => (
-                    <a href="#" className="font-medium text-blue-900 hover:text-gray-900">
+                  {navigation.map((item,idx) => (
+                   
+                    <a href="/" key={idx}  className="font-medium text-blue-900 hover:text-gray-900">
                       <Link to={item.href}>{item.name}</Link>
                     </a>
                   ))}
-                  <a onClick={logout} className="font-bold text-yellow-500 hover:text-gray-900">
+                  <a href = "/" onClick={logout} className="font-bold text-yellow-500 hover:text-gray-900">
                     <Link to="/">Sign Out</Link>
                   </a>
                 </div>
@@ -98,16 +99,15 @@ export default function ExampleLandingAdmin() {
                   </div>
                   <div className="px-2 pt-2 pb-3 space-y-1">
                     {navigation.map((item) => (
-                      <a
+                      <a href={item.href}
                         key={item.name}
-                        href={item.href}
                         className="block px-3 py-2 rounded-md text-base font-medium text-blue-900 hover:text-gray-900 hover:bg-gray-50"
                       >
                         {item.name}
                       </a>
                     ))}
                   </div>
-                  <a
+                  <a href ="/"
                     onClick={logout}
                     className="block w-full px-5 py-3 text-center font-medium text-blue-900 bg-gray-50 hover:bg-gray-100"
                   >

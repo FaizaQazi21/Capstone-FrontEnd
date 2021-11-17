@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { getUser } from "../data";
+
 import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 import { userService } from '../services/user.service';
@@ -7,13 +7,15 @@ import { userService } from '../services/user.service';
 class UserFormClass extends React.Component{
     constructor(props) {
         super(props);
-        const user = getUser(parseInt(props.id));
+        
         this.state = {
-            id: user ? user.id : '',
-            name:  user ? user.name : '', 
-            role: user ? user.role : 'User',
-            email: user ? user.email : '', 
-            password: user ? user.password : '' 
+            id:  parseInt(props.id),
+            name:  '', 
+            role_id: '',
+            email: '', 
+            password: '',
+            user: [],
+            roles : []
             
         };
     
@@ -32,15 +34,25 @@ class UserFormClass extends React.Component{
 
     }
     
+    componentDidMount() {
+        // Simple GET request using fetch
+        console.log("User ID :"+this.state.id)
+        if(this.state.id !==undefined){
+            userService.getUser(this.state.id).then(data => this.setState({ user:data }));  
+        
+        }
+        userService.getAllRoles().then(data => this.setState({ roles:data }));
+        console.log("check role"+this.state.user.name)
+    }
+    
     handleSubmit(event) {
         //check when role null
         //alert('The User was saved!');
         //event.preventDefault();
         //this.props.navigate('/users');
-        event.preventDefault();
-        
-
-        const options = {
+        if(this.state.id ===undefined){
+            event.preventDefault();
+            const options = {
                  method: 'POST',
                  headers: {
                  'Accept': 'application/json',
@@ -55,6 +67,29 @@ class UserFormClass extends React.Component{
         }
         
         userService.createUser(options).then(res => console.log(res));
+    }else{
+      
+        event.preventDefault();
+        const options = {
+             method: 'PUT',
+             headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin' : '*', 
+                'Access-Control-Allow-Credentials' : true,
+                'mode': 'no-cors'
+             },
+             body: JSON.stringify({
+                 id: this.state.id,
+                 name: this.state.name,
+                 role: this.state.role,
+                 email: this.state.email,
+                 password: this.state.password
+             })
+    }
+    
+    userService.updateUser(options,this.state.id).then(res => res.JSON());  
+    }
         
         this.props.navigate('/users');   
     }
@@ -77,7 +112,7 @@ class UserFormClass extends React.Component{
                                     type="text"
                                     name="name"
                                     id="first-name"
-                                    value={this.state.name}
+                                    defaultValue={this.state.user.name}
                                     onChange={this.handleChange}
                                     autoComplete="given-name"
                                     required
@@ -94,7 +129,7 @@ class UserFormClass extends React.Component{
                                         type="text"
                                         name="email"
                                         id="email-address"
-                                        value={this.state.email}
+                                        defaultValue={this.state.user.email}
                                         onChange={this.handleChange}
                                         autoComplete="email"
                                         required
@@ -110,7 +145,7 @@ class UserFormClass extends React.Component{
                                         id="password"
                                         name="password"
                                         type="password"
-                                        value={this.state.password}
+                                        defaultValue={this.state.user.password}
                                         onChange={this.handleChange}
                                         autoComplete="current-password"
                                         required
@@ -123,17 +158,28 @@ class UserFormClass extends React.Component{
                                     Role
                                 </label>
                                 <select
-                                    id="role"
-                                    name="role"
+                                    id="role_id"
+                                    name="role_id"
                                     autoComplete="role-name"
-                                    value={this.state.role}
+                                    defaultValue={this.state.user.role_id}
                                     onChange={this.handleChange}
+                                    // onChange={(selectedValues) => {
+                                    //     this.setState((preValue) => {
+                                    //       return {
+                                    //         ...preValue,
+                                    //         subjects: selectedValues,
+                                    //       };
+                                    //     });
+                                    //   }}
                                     required
                                     className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                 >
-                                    <option>User</option>
-                                    <option>Observer</option>
-                                    <option>Admin</option>
+                                    {this.state.roles.map(function(d, idx){
+                                          return(
+                                          <option key={idx} value = {d.id} >{d.role}</option>
+                                      )
+                                       
+                                    })}
                                 </select>
                                 </div>
 
