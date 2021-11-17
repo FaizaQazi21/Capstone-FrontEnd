@@ -19,8 +19,10 @@ export const userService = {
     getAllUsers,
     getProject,
     getUser,
+    getTask,
     createUser,
     createProject,
+    createTask,
     getUserTasks,
     getProjectTasks,
     getProjectTotalTasks,
@@ -59,6 +61,12 @@ function getUser(id){
     //return fetch(`http://localhost:8080/api/user/${id}`, requestOptions).then(handleResponse);
 }
 
+//TODO
+function getTask(id){
+    //const requestOptions = { method: 'GET', headers: authHeader() };
+    //return fetch(`http://localhost:8080/api/task/${id}`, requestOptions).then(handleResponse);
+}
+
 function createUser(options){
     const requestOptions = options
     requestOptions.Authorization = authHeader().Authorization
@@ -69,6 +77,13 @@ function createProject(options){
     const requestOptions = options
     requestOptions.Authorization = authHeader().Authorization
     return fetch(`http://localhost:8080/api/project/`, requestOptions).then(handleResponse);
+}
+
+//TODO
+function createTask(options){
+    const requestOptions = options
+    requestOptions.Authorization = authHeader().Authorization
+    return fetch(`http://localhost:8080/api/task/`, requestOptions).then(handleResponse);
 }
 
 function getUserTasks(id){

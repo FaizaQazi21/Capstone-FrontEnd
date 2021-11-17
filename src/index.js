@@ -15,6 +15,7 @@ import Projects from './routes/admin/projects';
 import ManageUsers from './routes/admin/manageUsers';
 import CreateProject from './routes/admin/createProject';
 import CreateUser from './routes/admin/createUser';
+import CreateTask from './routes/admin/createTask';
 import EditProjectView from './routes/admin/project';
 import UserView from './routes/admin/user';
 import Project from './routes/project';
@@ -74,6 +75,14 @@ ReactDOM.render(
           roles={[Role.Admin]}
           element={
             <PrivateRoute roles={[Role.Admin]} component={CreateUser}>
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/createtask"
+          roles={[Role.Admin]}
+          element={
+            <PrivateRoute roles={[Role.Admin]} component={CreateTask}>
             </PrivateRoute>
           }
         />
