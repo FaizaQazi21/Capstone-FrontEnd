@@ -26,6 +26,7 @@ import ProjectTasks from "./routes/user/projectTasks";
 import ViewTask from "./routes/user/taskView";
 import UserTasks from './routes/user/userTasks';
 import ManageTasks from './routes/admin/manageTasks';
+import EditTask from './routes/admin/editTask';
 
 
 // setup fake backend
@@ -86,6 +87,16 @@ ReactDOM.render(
             </PrivateRoute>
           }
         />
+        <Route path="editTask" element={<EditTask />}>
+          <Route
+          path=":taskID"
+          roles={[Role.Admin]}
+          element={
+            <PrivateRoute roles={[Role.Admin]} component={EditTask}>
+            </PrivateRoute>
+          }
+          />
+        </Route>
         <Route path="editproject" element={<EditProjectView />}>
           <Route
           path=":projectID"

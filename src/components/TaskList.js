@@ -56,7 +56,7 @@ export default function TaskList() {
                         <tbody>
                            
                         {tasks.length>0 ? tasks.map(function(d, idx){
-                            let link = "/projectTasks/" + (d.taskId).toString() + "/tasks";
+                            let link = "/editTask/" + (d.taskId).toString() ;
                             return (
                                 <tr key={idx}>
                                 <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">

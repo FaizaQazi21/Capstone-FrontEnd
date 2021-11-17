@@ -1,7 +1,7 @@
 import config from '../config';
 import { authHeader } from '../helpers/auth-header';
 import { handleResponse } from '../helpers/handle-response';
-import { getTaskByProjectID } from "../data";//TEMP
+import { getTaskByProjectID,getTaskByID } from "../data";//TEMP
 
 
 //accessing secure api endpoints with the http authorization header 
@@ -63,6 +63,8 @@ function getUser(id){
 
 //TODO
 function getTask(id){
+    let data = getTaskByID(id);
+    return data[0];
     //const requestOptions = { method: 'GET', headers: authHeader() };
     //return fetch(`http://localhost:8080/api/task/${id}`, requestOptions).then(handleResponse);
 }
