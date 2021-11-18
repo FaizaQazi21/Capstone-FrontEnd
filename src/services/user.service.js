@@ -1,7 +1,7 @@
 import config from '../config';
 import { authHeader } from '../helpers/auth-header';
 import { handleResponse } from '../helpers/handle-response';
-import { getTaskByProjectID } from "../data";//TEMP
+import { getTaskByProjectID,getTaskByID } from "../data";//TEMP
 
 
 //accessing secure api endpoints with the http authorization header 

@@ -7,30 +7,22 @@ import { AdjustmentsIcon } from '@heroicons/react/outline'
 import { Button } from '@material-ui/core';
 import { userService } from '../services/user.service';
 
- 
 
-  
-export default function TaskList() {
-    
+
+export default function UserTaskList() {
     const  param  = useParams();
-    var id = parseInt(param.projectID);
-    //let data = getTaskByProjectID(id);
-    //console.log(data.length)
-
-    
+    var id = parseInt(param.userID);
     const [tasks, setTasks] = useState([]);
+        
+    id=1;
+
     useEffect(() => {
-        userService.getProjectTasks(id).then(tasks => setTasks( tasks ));
-    });
+        userService.getUserTasks(id).then(tasks => setTasks( tasks ));
+    }, []);
 
     return (
       <>
         <Card>
-            <button
-                  className="flex ml-3 py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-yellow-500 hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                >
-                  <Link to="/createtask">Create new Task</Link>                  
-            </button>
             <CardBody>
                 <div className="overflow-x-auto">
                     <table className="items-center w-full bg-transparent border-collapse">
@@ -53,10 +45,11 @@ export default function TaskList() {
                                 </th>
                             </tr>
                         </thead>
-                        <tbody>
-                           
+                        <tbody> 
+
                         {tasks.length>0 ? tasks.map(function(d, idx){
-                            let link = "/editTask/" + (d.taskId).toString() ;
+                            let link = "/editTask/" + (d.task_id).toString();
+                            
                             return (
                                 <tr key={idx}>
                                 <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
@@ -73,17 +66,22 @@ export default function TaskList() {
                                     {d.total_hours}
                                 </th>
                                 <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
-                                {/* TODO this needs to link to edit task */}
+                                
                                 <Link to={link}>
                                     <Button className="">
                                         <AdjustmentsIcon className="max-h-7 text-yellow-500 hover:bg-yellow-600"/>
                                     </Button>
                                 </Link>
+
                                 </th>
                             </tr>
                             )
                         }):
-                         (<tr><th colSpan="5" className="font-mediumlight text-sm whitespace-nowrap px-2 py-4 ">No task found</th></tr>)
+                         (
+                            <tr>
+                                <th colSpan="5" className="font-mediumlight text-sm whitespace-nowrap px-2 py-4 ">No task found</th>
+                            </tr>
+                         )
                         }
                         </tbody>
                     </table>

@@ -1,13 +1,14 @@
 import ExampleLandingAdmin from "../../components/LandingAdmin";
-import EditTaskForm from "../../components/EditTaskForm";
+import UserTaskList from "../../components/UserTaskList";
 import { useParams } from "react-router-dom";
 
-export default function EditTask() {
+export default function UserTasksAdmin() {
     let params = useParams();
+
     return (
       <>
         <ExampleLandingAdmin/>
-        <EditTaskForm id={params.taskID}/>
+        <UserTaskList id={params.userID}/>
       </>
     );
 }
