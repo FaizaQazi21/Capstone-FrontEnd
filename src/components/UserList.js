@@ -22,19 +22,7 @@ class UserListViewClass extends React.Component {
         userService.getAllUsers().then(users => this.setState({ users }));
     }
 
-    //getting
-    // useEffect(() => {
-    //     fetch("http://localhost:8080/api/user"
-    //     )
-    //         .then(response => {
-    //             if (response.status !== 200) {
-    //                 return Promise.reject("Fetch failed")
-    //             }
-    //             return response.json();
-    //         })
-    //         .then(json => setUser(json))
-    //         .catch(console.log);
-    // }, []);
+    
 
     render () {
         const { users } = this.state;
@@ -58,7 +46,10 @@ class UserListViewClass extends React.Component {
                                 <th className="px-2 text-blue-900 align-middle border-b border-solid border-gray-200 py-3 text-sm whitespace-nowrap text-left">
                                     Role
                                 </th>
-                                
+                                <th className="px-2 text-blue-900 align-middle border-b border-solid border-gray-200 py-3 text-sm whitespace-nowrap text-left">
+                                    Salary
+                                </th>
+
                                 <th className="px-2 text-blue-900 align-middle border-b border-solid border-gray-200 py-3 text-sm whitespace-nowrap text-left">
                                     Status
                                 </th>
@@ -81,9 +72,13 @@ class UserListViewClass extends React.Component {
                                 
                                 <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
                                     <i className="fas fa-circle fa-sm text-orange-500"></i>{' '}
-                                    User
+                                    {d.role}
                                 </th>
                                 
+                                <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
+                                    <i className="fas fa-circle fa-sm text-orange-500"></i>{' '}
+                                    {d.salary}
+                                </th>
                                 <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
                                     <i className="fas fa-circle fa-sm text-orange-500"></i>{' '}
                                     Active

@@ -1,5 +1,4 @@
 import * as React from 'react';
-
 import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 import { userService } from '../services/user.service';
@@ -7,14 +6,18 @@ import { userService } from '../services/user.service';
 class UserFormClass extends React.Component{
     constructor(props) {
         super(props);
-        
+        if(props.id !==undefined){
+        userService.getUser(parseInt(props.id)).then(data => this.setState({ user:data })); 
+        }
+       
         this.state = {
             id:  parseInt(props.id),
             name:  '', 
             role_id: '',
             email: '', 
             password: '',
-            user: [],
+            salary: '', 
+            user : [],           
             roles : []
             
         };
@@ -35,22 +38,16 @@ class UserFormClass extends React.Component{
     }
     
     componentDidMount() {
-        // Simple GET request using fetch
-        console.log("User ID :"+this.state.id)
-        if(this.state.id !==undefined){
-            userService.getUser(this.state.id).then(data => this.setState({ user:data }));  
+       
         
-        }
         userService.getAllRoles().then(data => this.setState({ roles:data }));
-        console.log("check role"+this.state.user.name)
+        
     }
     
     handleSubmit(event) {
-        //check when role null
-        //alert('The User was saved!');
-        //event.preventDefault();
-        //this.props.navigate('/users');
+        
         if(this.state.id ===undefined){
+           
             event.preventDefault();
             const options = {
                  method: 'POST',
@@ -60,9 +57,10 @@ class UserFormClass extends React.Component{
                  },
                  body: JSON.stringify({
                      name: this.state.name,
-                     role: this.state.role,
+                     role_id: this.state.roleId,
                      email: this.state.email,
-                     password: this.state.password
+                     password: this.state.password,
+                     salary: this.state.salary
                  })
         }
         
@@ -82,9 +80,10 @@ class UserFormClass extends React.Component{
              body: JSON.stringify({
                  id: this.state.id,
                  name: this.state.name,
-                 role: this.state.role,
+                 role_id: this.state.roleId,
                  email: this.state.email,
-                 password: this.state.password
+                 password: this.state.password,
+                 salary: this.state.salary
              })
     }
     
@@ -95,7 +94,7 @@ class UserFormClass extends React.Component{
     }
 
     render() {
-    
+    let users = this.state
     return (
         <>
             <div>
@@ -136,6 +135,21 @@ class UserFormClass extends React.Component{
                                         className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                                     />
                                 </div>
+                                <div className="col-span-6 sm:col-span-4">
+                                    <label htmlFor="email-address" className="block text-sm font-medium text-gray-700">
+                                        Salary
+                                    </label>
+                                    <input
+                                        type="text"
+                                        name="salary"
+                                        id="salary"
+                                        defaultValue={this.state.user.salary}
+                                        onChange={this.handleChange}
+                                        autoComplete="salary"
+                                        required
+                                        className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                    />
+                                </div>
                                 
                                 <div className="col-span-6 sm:col-span-4">
                                     <label htmlFor="email-address" className="block text-sm font-medium text-gray-700">
@@ -158,28 +172,22 @@ class UserFormClass extends React.Component{
                                     Role
                                 </label>
                                 <select
-                                    id="role_id"
-                                    name="role_id"
+                                    id="roleId"
+                                    name="roleId"
                                     autoComplete="role-name"
-                                    defaultValue={this.state.user.role_id}
                                     onChange={this.handleChange}
-                                    // onChange={(selectedValues) => {
-                                    //     this.setState((preValue) => {
-                                    //       return {
-                                    //         ...preValue,
-                                    //         subjects: selectedValues,
-                                    //       };
-                                    //     });
-                                    //   }}
                                     required
                                     className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                 >
-                                    {this.state.roles.map(function(d, idx){
+                                    
+                                     {
+                                     users.roles.map(function(d, idx){
+                                       
                                           return(
-                                          <option key={idx} value = {d.id} >{d.role}</option>
+                                          <option key={idx} value = {d.id} selected = { parseInt(users.user.role_id) === parseInt(d.id) ? true : false}>{d.role}</option>
                                       )
                                        
-                                    })}
+                                    })} 
                                 </select>
                                 </div>
 

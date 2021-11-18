@@ -18,7 +18,7 @@ export default function UserTaskList() {
 
     useEffect(() => {
         userService.getUserTasks(id).then(tasks => setTasks( tasks ));
-    }, []);
+    });
 
     return (
       <>
