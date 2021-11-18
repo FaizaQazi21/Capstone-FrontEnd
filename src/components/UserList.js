@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Card from '@material-tailwind/react/Card';
 import CardBody from '@material-tailwind/react/CardBody';
-import { AdjustmentsIcon } from '@heroicons/react/outline'
+import { AdjustmentsIcon, EyeIcon } from '@heroicons/react/outline'
 import { Button } from '@material-ui/core';
 import { Link } from "react-router-dom";
 import { userService } from '../services/user.service';
@@ -71,7 +71,8 @@ class UserListViewClass extends React.Component {
                         { users &&
                         <tbody>
                         {users.map(function(d, idx){
-                            let link = "/edituser/" + d.id; 
+                            let link = "/edituser/" + d.id;
+                            let linkTasks = "/usertasks/" + d.id;
                             return (
                                 <tr key={idx}>
                                 <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
@@ -89,6 +90,12 @@ class UserListViewClass extends React.Component {
                                 </th>
 
                                 <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
+                                    <Link to={linkTasks}
+                                        >
+                                            <Button className="">
+                                                <EyeIcon className="max-h-7 text-yellow-500 "/>
+                                            </Button>
+                                    </Link>
                                     <Link to={link} params={{ user: {d} }}>
                                         <Button>
                                             <AdjustmentsIcon className="pl-1 max-h-7 text-yellow-500 "/>

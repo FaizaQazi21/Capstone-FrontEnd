@@ -113,20 +113,25 @@ class EditTaskFormClass extends React.Component{
                                     </div>
 
                                     <div className="col-span-6 sm:col-span-4">
+                                        
                                         <label htmlFor="status" className="block text-sm font-medium text-gray-700">
-                                        Status
+                                            Status
                                         </label>
-                                        <div className="mt-1">
-                                        <textarea
+                                        <select
                                             id="status"
                                             name="status"
                                             value={this.state.status}
                                             onChange={this.handleChange}
+                                            autoComplete="status-name"
                                             required
-                                            className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md"
-                                        />
-                                        </div>
-
+                                            className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                        >
+                                            <option>Available</option>
+                                            <option>Inprogress</option>
+                                            <option>Completed</option>
+                                            <option>Hold</option>
+                                        </select>
+                                        
                                         {   this.state.status !== "Available" &&
                                             <>
                                             <br/>
