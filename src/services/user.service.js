@@ -133,8 +133,7 @@ function getProjectTotalTasks(id){
 
 //TODO
 function getProjectFinishedTasks(id){
-    let data = getTaskByProjectID(id);
-    return data.length;
-    //const requestOptions = { method: 'GET', headers: authHeader() };
-    //return fetch(`http://localhost:8080/api/task/project/${id}`, requestOptions).then(handleResponse);
+    const requestOptions = { method: 'GET', headers: authHeader() };
+    let numberOfTask = fetch(`http://localhost:8080/api/project/completedtasks/${id}`, requestOptions).then(handleResponse);
+    return numberOfTask;
 }
