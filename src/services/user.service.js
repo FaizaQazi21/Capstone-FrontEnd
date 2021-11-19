@@ -29,7 +29,8 @@ export const userService = {
     getProjectTotalTasks,
     getProjectFinishedTasks,
     updateProject,
-    updateUser
+    updateUser,
+    updateTask
 };
 
 function getAll() {
@@ -75,6 +76,11 @@ function updateUser(options,id){
     return fetch(`http://localhost:8080/api/user/${id}`, requestOptions).then(handleResponse);
 }
 
+function updateTask(options,id){
+    const requestOptions = options
+    requestOptions.Authorization = authHeader().Authorization
+    return fetch(`http://localhost:8080/api/task/${id}`, requestOptions).then(handleResponse);
+}
 
 function getUser(id){
     const requestOptions = { method: 'GET', headers: authHeader() };

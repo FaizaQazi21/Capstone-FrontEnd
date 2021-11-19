@@ -1,37 +1,48 @@
 import * as React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { userService } from '../services/user.service';
 
 class EditTaskFormClass extends React.Component{
     constructor(props) {
         super(props);
 
-        const task = userService.getTask(parseInt(props.id));
-
-        const task_description = task.Description 
-        const note = task.Notes
-        const status = task.Status
-        const total_hours = task.TotalHR
-        const name = task.TaskName
-        const id = task.taskId
-        const user_id = task.userID
-
         this.state = {
-            id: task ? id: '',
-            name: task ? name : 'ooo', 
-            task_description: task ? task_description : '',
-            user_id: task ? user_id : '',
-            start_time: task ? task.start_time : '',
-            total_hours: task ? total_hours : '',
-            status: 'Inprogress',
-            note: task ? note : ''        
+            id: parseInt(props.id),
+            name:'', 
+            task_description:  '',
+            user_id:  '',
+            start_time:  '',
+            total_hours:  '',
+            status: '',
+            notes:  '',
+            project_id: '',
+            users: null,
         };
-    
+
+        
+
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     
+    componentDidMount() {
+        console.log(this.props.id)
+        userService.getTask(parseInt(this.props.id))
+        .then(task => this.setState({
+            id: task ? task.id: '',
+            name: task ? task.name : '', 
+            task_description: task ? task.task_description : '',
+            user_id: task ? task.user_id : '',
+            start_time: task ? task.start_time : '',
+            total_hours: task ? task.total_hours : '',
+            status: task ? task.status_id : '',
+            notes: task ? task.notes : '',
+            project_id: task ? task.project_id : '',
+        }))
 
+        userService.getAllUsers()
+        .then(users => this.setState({ users:users }))    
+    }
 
     handleChange(event) {
         const target = event.target;
@@ -51,22 +62,34 @@ class EditTaskFormClass extends React.Component{
       
 
         const options = {
-            method: 'POST',
+            method: 'PUT',
             headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin' : '*', 
+                'Access-Control-Allow-Credentials' : true,
+                'mode': 'no-cors'
             },
             body: JSON.stringify({
-            name: this.state.name,
-            task_description: this.state.task_description,
+                id: this.state.id,
+                name: this.state.name, 
+                user_id: this.state.user_id,
+                start_time: this.state.start_time,
+                total_hours: this.state.total_hours,
+                status_id: this.state.status,
+                project_id: this.state.project_id,
+                notes: this.state.notes,
+                task_description: this.state.task_description
             })
         }
-
-        userService.createTask(options).then(res => console.log(res));
+        console.log(options)
+        userService.updateTask(options, this.state.id).then(res => console.log(res));
 
         this.props.navigate('/projects');   
     }
     render(){
+        const  state  = this.state;
+
         return (
             <>
                 <div>
@@ -92,7 +115,7 @@ class EditTaskFormClass extends React.Component{
                                         />
                                     </div>                            
 
-                                    <div className="col-span-6 sm:col-span-4">
+                                    {/* <div className="col-span-6 sm:col-span-4">
                                         <label htmlFor="task_description" className="block text-sm font-medium text-gray-700">
                                         Task Description
                                         </label>
@@ -110,7 +133,7 @@ class EditTaskFormClass extends React.Component{
                                         <p className="mt-2 text-sm text-gray-500">
                                         Brief description of your task.
                                         </p>
-                                    </div>
+                                    </div> */}
 
                                     <div className="col-span-6 sm:col-span-4">
                                         
@@ -120,7 +143,7 @@ class EditTaskFormClass extends React.Component{
                                         <select
                                             id="status"
                                             name="status"
-                                            value={this.state.status}
+                                            value={state.user_id}
                                             onChange={this.handleChange}
                                             autoComplete="status-name"
                                             required
@@ -137,21 +160,30 @@ class EditTaskFormClass extends React.Component{
                                             <br/>
                                             <div className="col-span-6 sm:col-span-4">
                                                 <label htmlFor="user_id" className="block text-sm font-medium text-gray-700">
-                                                    User Id
+                                                    User
                                                 </label>
-                                                <input
-                                                    type="text"
-                                                    name="user_id"
-                                                    value={this.state.user_id}
+                                                
+                                                <select
+                                                    id="user"
+                                                    name="user"
+                                                    value={this.user_id}
                                                     onChange={this.handleChange}
-                                                    id="user_id"
+                                                    autoComplete="status-name"
                                                     required
-                                                    autoComplete="given-name"
-                                                    className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                                />
+                                                    className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                                >
+                                                    { state.users && 
+                                                        state.users.map(function(d, idx){
+                                                    
+                                                        return(
+                                                        <option key={idx} value = {d.name} selected = { parseInt(state.user_id) === parseInt(d.user_id) ? true : false}>{d.name}</option>
+                                                    )})
+                                                    }  
+
+                                                </select>
                                             </div> 
                                             <br/>
-                                            <div className="col-span-6 sm:col-span-4">
+                                            {/* <div className="col-span-6 sm:col-span-4">
                                                 <label htmlFor="note" className="block text-sm font-medium text-gray-700">
                                                     User note
                                                 </label>
@@ -165,10 +197,10 @@ class EditTaskFormClass extends React.Component{
                                                     className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                                                 />
                                             </div>
-                                            <br/>
+                                            <br/> */}
                                             <div className="col-span-6 sm:col-span-4">
                                                 <label htmlFor="total_hours" className="block text-sm font-medium text-gray-700">
-                                                    Total Time
+                                                    Total Hours
                                                 </label>
                                                 <input
                                                     type="text"
@@ -186,12 +218,11 @@ class EditTaskFormClass extends React.Component{
                                 </div>
                                 </div>
                                 <div className="text-right px-4 py-3 sm:px-6">
-                                    <button
-                                        type=""
-                                        className="mr-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-900 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                                    >
-                                        Cancel
-                                    </button>
+                                    <Link to="/projects" className="mr-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-900 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                            <button className="font-bold">
+                                            Cancel
+                                            </button>
+                                    </Link>
                                     <input type="submit" value="Save" className="inline-flex pr-3justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-yellow-500 hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"/>
                                 </div>
                             </div>

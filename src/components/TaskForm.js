@@ -7,7 +7,7 @@ class TaskFormClass extends React.Component{
         super(props);
         
         const task = userService.getTask(parseInt(props.id));
-
+        
         this.state = {
             id: task ? task.id: '',
             name: task ? task.name : '', 
