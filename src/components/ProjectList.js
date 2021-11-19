@@ -68,7 +68,7 @@ class ListViewClass extends React.Component {
                             let linkTasks = "/projectTasks/" + (d.id).toString() + "/tasks";
                             console.log("project: " + projects.length)
                             userService.getProjectFinishedTasks(d.id).then(data => console.log(data));
-                            let totalTasks =4;
+                            let totalTasks = 7;
                             //userService.getProjectFinishedTasks(d.id).then(tasksCompleted => this.setState({ tasksCompleted }));  
                             let finishedTasks = 2;
                             

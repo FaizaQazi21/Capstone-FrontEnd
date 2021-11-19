@@ -54,8 +54,8 @@ class ListViewClass extends React.Component {
                         {projects.map(function(d, idx){
                             let link = "/user/projectTasks/" + (d.id).toString();
 
-                            let finishedTasks = userService.getProjectFinishedTasks(d.id);
-                            let totalTasks = userService.getProjectTotalTasks(d.id);
+                            let finishedTasks = 2;
+                            let totalTasks = 7;
                             let res = finishedTasks*100/totalTasks;
 
                         return (

@@ -11,7 +11,7 @@ export default function TaskView() {
     const  param  = useParams();
     var id = parseInt(param.taskID);
     let data = getTaskByID(id);
-    let status = (data[0].Status=== "Inprogress" ? true : false);
+    let status = false;
     var userid = 2;
     let datatime;
     let hr = 0;
