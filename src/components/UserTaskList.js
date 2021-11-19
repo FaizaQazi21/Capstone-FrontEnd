@@ -14,7 +14,6 @@ export default function UserTaskList() {
     var id = parseInt(param.userID);
     const [tasks, setTasks] = useState([]);
         
-    id=1;
 
     useEffect(() => {
         userService.getUserTasks(id).then(tasks => setTasks( tasks ));

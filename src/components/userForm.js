@@ -6,14 +6,16 @@ import { userService } from '../services/user.service';
 class UserFormClass extends React.Component{
     constructor(props) {
         super(props);
+
         if(props.id !==undefined){
         userService.getUser(parseInt(props.id)).then(data => this.setState({ user:data })); 
         }
        
+
         this.state = {
-            id:  parseInt(props.id),
+            id:  props.id,
             name:  '', 
-            role_id: '',
+            role_id: 2,
             email: '', 
             password: '',
             salary: '', 
@@ -45,8 +47,8 @@ class UserFormClass extends React.Component{
     }
     
     handleSubmit(event) {
-        
-        if(this.state.id ===undefined){
+        console.log(this.state.id)
+        if(this.state.id == undefined){
            
             event.preventDefault();
             const options = {
@@ -57,7 +59,7 @@ class UserFormClass extends React.Component{
                  },
                  body: JSON.stringify({
                      name: this.state.name,
-                     role_id: this.state.roleId,
+                     role_id: this.state.role_id,
                      email: this.state.email,
                      password: this.state.password,
                      salary: this.state.salary
@@ -175,6 +177,7 @@ class UserFormClass extends React.Component{
                                     id="roleId"
                                     name="roleId"
                                     autoComplete="role-name"
+                                    value={this.state.role_id}
                                     onChange={this.handleChange}
                                     required
                                     className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
@@ -184,7 +187,7 @@ class UserFormClass extends React.Component{
                                      users.roles.map(function(d, idx){
                                        
                                           return(
-                                          <option key={idx} value = {d.id} selected = { parseInt(users.user.role_id) === parseInt(d.id) ? true : false}>{d.role}</option>
+                                          <option key={idx} value = {d.id} selected = { parseInt(users.role_id) === parseInt(d.id) ? true : false}>{d.role}</option>
                                       )
                                        
                                     })} 

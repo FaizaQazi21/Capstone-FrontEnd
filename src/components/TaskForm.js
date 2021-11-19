@@ -6,12 +6,13 @@ class TaskFormClass extends React.Component{
     constructor(props) {
         super(props);
         
-        const task = userService.getTask(parseInt(props.id));
-        
+        console.log(props.project_id)
+
         this.state = {
-            id: task ? task.id: '',
-            name: task ? task.name : '', 
-            task_description: task ? task.task_description : '', 
+            id: '',
+            name: '', 
+            task_description: '', 
+            project_id: props.project_id,
         };
     
         this.handleChange = this.handleChange.bind(this);
@@ -25,7 +26,6 @@ class TaskFormClass extends React.Component{
 
         this.setState({
             [name]: value, 
-            
         });
 
     }
@@ -33,7 +33,6 @@ class TaskFormClass extends React.Component{
     handleSubmit(event) {
        
         event.preventDefault();
-      
 
         const options = {
             method: 'POST',
@@ -43,6 +42,12 @@ class TaskFormClass extends React.Component{
             },
             body: JSON.stringify({
             name: this.state.name,
+            user_id: 1,
+            start_time: null,
+            total_hours: 0,
+            status_id: 1,
+            project_id: this.state.project_id,
+            note: '',
             task_description: this.state.task_description,
             })
         }

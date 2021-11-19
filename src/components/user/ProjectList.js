@@ -26,11 +26,7 @@ class ListViewClass extends React.Component {
         return (
     <>
         <Card>
-            <button
-                className="flex ml-3 py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-yellow-500 hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                >
-                <Link to="/createproject">Create new project</Link>
-            </button>
+            
             <CardBody>
                 <div className="overflow-x-auto">
                     <table className="items-center w-full bg-transparent border-collapse">

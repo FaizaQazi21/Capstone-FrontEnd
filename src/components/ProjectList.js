@@ -14,10 +14,13 @@ class ListViewClass extends React.Component {
 
         this.state = {
             projects: null,
-            tasksCompleted: null
+            tasksCompleted: null,
         };
     }
 
+    aux(id){
+        userService.getProjectFinishedTasks(id).then(tasksCompleted => this.setState({ tasksCompleted }));   
+    }
 
     componentDidMount() {
         userService.getAllProjects().then(projects => this.setState({ projects }));        
@@ -65,9 +68,9 @@ class ListViewClass extends React.Component {
                             let linkTasks = "/projectTasks/" + (d.id).toString() + "/tasks";
                             console.log("project: " + projects.length)
                             userService.getProjectFinishedTasks(d.id).then(data => console.log(data));
-                            let totalTasks = 4;
+                            let totalTasks =4;
                             //userService.getProjectFinishedTasks(d.id).then(tasksCompleted => this.setState({ tasksCompleted }));  
-                            let finishedTasks = userService.getProjectFinishedTasks(d.id);
+                            let finishedTasks = 2;
                             
                             let res = finishedTasks*100/totalTasks;
 
